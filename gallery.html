@@ -71,8 +71,22 @@
         // Supabase 초기화
         async function initSupabase() {
             try {
-                const response = await fetch('/api/config');
-                const config = await response.json();
+                let config;
+
+                // 1. API에서 설정 가져오기 시도 (로컬 서버)
+                try {
+                    const response = await fetch('/api/config');
+                    config = await response.json();
+                    console.log('✅ API에서 Supabase 설정 로드됨');
+                } catch (apiError) {
+                    // 2. API 실패 시 하드코딩된 설정 사용 (GitHub Pages)
+                    config = {
+                        SUPABASE_URL: 'https://ekvnwbumkkolthhvjfmk.supabase.co',
+                        SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVrdm53YnVta2tvbHRoaHZqZm1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5MDcxNTYsImV4cCI6MjA5NDQ4MzE1Nn0.6zzMYhM-ezbji-rXo7SEy-JwEn6IKLCOoPMB4YB1QtI'
+                    };
+                    console.log('✅ 하드코딩된 Supabase 설정 사용 (GitHub Pages)');
+                }
+
                 const { createClient } = window.supabase;
                 galleryClient = createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY);
                 console.log('✅ Supabase 초기화 완료');

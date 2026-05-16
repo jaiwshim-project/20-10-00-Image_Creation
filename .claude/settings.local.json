@@ -53,7 +53,12 @@
       "Bash(git submodule *)",
       "Bash(git fsck *)",
       "Bash(git config *)",
-      "Bash(git remote *)"
+      "Bash(git remote *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git commit -m 'fix: 템플릿 이미지 경로를 온라인 URL로 변경 \\(GitHub Pages 호환\\) *)",
+      "Bash(git commit -m 'fix: 템플릿 이미지 CDN을 Unsplash → Picsum으로 변경 *)",
+      "Bash(git commit -m 'fix: GitHub Pages에서 Supabase 연결 \\(API fallback 추가\\) *)"
     ]
   }
 }

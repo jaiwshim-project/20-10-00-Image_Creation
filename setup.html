@@ -337,11 +337,13 @@
             try {
                 log('Supabase 연결 확인 중...', 'info');
 
+                // 설정이 없으면 API 또는 하드코딩된 설정 사용
                 if (!config || !config.SUPABASE_URL || !config.SUPABASE_ANON_KEY) {
-                    setStatus('supabase-status', 'error');
-                    document.getElementById('supabase-text').textContent = '설정 없음';
-                    log('❌ Supabase 설정 정보 없음', 'error');
-                    return false;
+                    config = {
+                        SUPABASE_URL: 'https://ekvnwbumkkolthhvjfmk.supabase.co',
+                        SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVrdm53YnVta2tvbHRoaHZqZm1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5MDcxNTYsImV4cCI6MjA5NDQ4MzE1Nn0.6zzMYhM-ezbji-rXo7SEy-JwEn6IKLCOoPMB4YB1QtI'
+                    };
+                    log('✅ 하드코딩된 Supabase 설정 사용', 'info');
                 }
 
                 const { createClient } = window.supabase;

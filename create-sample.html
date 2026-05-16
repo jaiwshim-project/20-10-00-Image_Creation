@@ -109,8 +109,19 @@
 
                 // 1. Supabase 초기화
                 log('🔄 Supabase 초기화 중...');
-                const response = await fetch('/api/config');
-                const config = await response.json();
+
+                let config;
+                try {
+                    const response = await fetch('/api/config');
+                    config = await response.json();
+                    log('✅ API에서 Supabase 설정 로드됨');
+                } catch (apiError) {
+                    config = {
+                        SUPABASE_URL: 'https://ekvnwbumkkolthhvjfmk.supabase.co',
+                        SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVrdm53YnVta2tvbHRoaHZqZm1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5MDcxNTYsImV4cCI6MjA5NDQ4MzE1Nn0.6zzMYhM-ezbji-rXo7SEy-JwEn6IKLCOoPMB4YB1QtI'
+                    };
+                    log('✅ 하드코딩된 Supabase 설정 사용 (GitHub Pages)');
+                }
 
                 const { createClient } = window.supabase;
                 sampleClient = createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY);
