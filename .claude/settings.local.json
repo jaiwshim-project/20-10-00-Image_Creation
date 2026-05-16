@@ -58,7 +58,13 @@
       "Bash(git push *)",
       "Bash(git commit -m 'fix: 템플릿 이미지 경로를 온라인 URL로 변경 \\(GitHub Pages 호환\\) *)",
       "Bash(git commit -m 'fix: 템플릿 이미지 CDN을 Unsplash → Picsum으로 변경 *)",
-      "Bash(git commit -m 'fix: GitHub Pages에서 Supabase 연결 \\(API fallback 추가\\) *)"
+      "Bash(git commit -m 'fix: GitHub Pages에서 Supabase 연결 \\(API fallback 추가\\) *)",
+      "Bash(cp \"C:\\\\Users\\\\USER\\\\Downloads\\\\에바셀1.png\" \"C:\\\\01 클로드코드\\\\40-10-00 홍보 이미지 제작 플랫폼\\\\images\\\\ebasel.png\")",
+      "Bash(cp \"C:\\\\Users\\\\USER\\\\Downloads\\\\선거1.png\" \"C:\\\\01 클로드코드\\\\40-10-00 홍보 이미지 제작 플랫폼\\\\images\\\\sungo.png\")",
+      "Bash(cp \"C:\\\\Users\\\\USER\\\\Downloads\\\\GEO1.png\" \"C:\\\\01 클로드코드\\\\40-10-00 홍보 이미지 제작 플랫폼\\\\images\\\\geo.png\")",
+      "Bash(cp \"C:\\\\Users\\\\USER\\\\Downloads\\\\MedVo1.png\" \"C:\\\\01 클로드코드\\\\40-10-00 홍보 이미지 제작 플랫폼\\\\images\\\\medvo.png\")",
+      "Bash(cp \"C:\\\\Users\\\\USER\\\\Downloads\\\\GEO-MedVo1.png\" \"C:\\\\01 클로드코드\\\\40-10-00 홍보 이미지 제작 플랫폼\\\\images\\\\geo-medvo.png\")",
+      "Bash(git commit -m 'feat: 로컬 이미지 파일을 템플릿으로 추가 *)"
     ]
   }
 }
