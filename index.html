@@ -920,13 +920,18 @@
 
                 const baseImg = new Image();
                 let loadTimeout = null;
+                let onloadTriggered = false;
 
+                // 이미지 로드 성공
                 baseImg.onload = () => {
                     if (loadTimeout) clearTimeout(loadTimeout);
-                    console.log('✅ 템플릿 이미지 로드 성공:', {
-                        width: baseImg.width,
-                        height: baseImg.height,
-                        src: baseImg.src.substring(0, 50) + '...'
+                    onloadTriggered = true;
+
+                    console.log('%c✅ 템플릿 이미지 로드 성공!', 'color: green; font-size: 16px; font-weight: bold;', {
+                        src: baseImg.src,
+                        naturalWidth: baseImg.naturalWidth,
+                        naturalHeight: baseImg.naturalHeight,
+                        complete: baseImg.complete
                     });
                     updateProgress(25, '이미지 처리 중...');
 
@@ -935,7 +940,10 @@
                     let materialLoaded = false;
 
                     if (materialBase64) {
-                        materialImg.onload = () => { materialLoaded = true; };
+                        materialImg.onload = () => {
+                            materialLoaded = true;
+                            console.log('✅ 자료 이미지 로드 완료');
+                        };
                         materialImg.onerror = () => { console.warn('⚠️ 자료 이미지 로드 실패'); };
                         materialImg.src = materialBase64;
                     }
@@ -951,13 +959,16 @@
                             const ctx = canvas.getContext('2d');
 
                             // 1️⃣ 템플릿 이미지 (Step 5에서 선택한 템플릿)를 배경으로 그리기
+                            // baseImg가 이미 로드되었음이 확인됨
                             ctx.drawImage(baseImg, 0, 0, 1024, 1024);
+                            console.log(`  → 템플릿 이미지 드로우 완료 (${baseImg.naturalWidth}x${baseImg.naturalHeight})`);
 
                             // 2️⃣ Step 2 자료 이미지가 있으면 위에 overlay (투명도 35%)
                             if (materialLoaded && materialImg.complete) {
                                 ctx.globalAlpha = 0.35;
                                 ctx.drawImage(materialImg, 0, 0, 1024, 1024);
                                 ctx.globalAlpha = 1.0;
+                                console.log('  → 자료 이미지 오버레이 완료');
                             }
 
                             // 색상 그래디언트 오버레이
@@ -966,6 +977,7 @@
                             gradient.addColorStop(1, color + '80');
                             ctx.fillStyle = gradient;
                             ctx.fillRect(0, 0, 1024, 1024);
+                            console.log('  → 그래디언트 오버레이 완료');
 
                             // 주제 텍스트
                             ctx.fillStyle = 'white';
@@ -981,6 +993,7 @@
                                 ctx.fillText(line, 512, y);
                                 y += 60;
                             });
+                            console.log('  → 주제 텍스트 완료');
 
                             // 연락처 정보
                             ctx.font = '20px Arial';
@@ -1021,6 +1034,7 @@
                                 logoLoaded = true;
                                 clearTimeout(logoTimeout);
                                 ctx.drawImage(logoImg, 20, 20, 120, 120);
+                                console.log('  → 로고 드로우 완료');
                                 finishCanvas();
                             };
 
@@ -1051,7 +1065,7 @@
 
                                     // 모든 이미지 생성 완료
                                     if (completedCount === 5) {
-                                        console.log('✅ 모든 이미지 생성 완료!');
+                                        console.log('%c✅ 모든 5가지 이미지 생성 완료!', 'color: darkgreen; font-size: 14px; font-weight: bold;');
                                         displayMultipleImages(generatedImages);
                                         saveGenerationToSupabase(formData, generatedImages);
                                         updateProgress(100, '✅ 5가지 컬러 이미지 생성 완료!');
@@ -1083,23 +1097,14 @@
 
                 baseImg.onerror = (error) => {
                     if (loadTimeout) clearTimeout(loadTimeout);
-                    console.error('[CANVAS-ERROR] 배경 이미지 로드 실패:', {
+                    console.error('%c❌ 템플릿 이미지 로드 실패!', 'color: red; font-size: 14px; font-weight: bold;', {
                         error: error,
-                        src: baseImg.src.substring(0, 50) + '...',
-                        srcLength: baseImg.src.length,
-                        naturalWidth: baseImg.naturalWidth,
-                        naturalHeight: baseImg.naturalHeight
+                        src: baseImg.src,
+                        statusCode: baseImg.status
                     });
-                    alert('❌ 배경 이미지를 로드할 수 없습니다.\n\n확인사항:\n1. 지원되는 형식(PNG, JPEG, WebP, GIF)인가요?\n2. 파일이 손상되지 않았나요?\n3. 다시 선택해주세요.');
+                    alert('❌ 템플릿 이미지를 로드할 수 없습니다.\n\n확인사항:\n1. 이미지 파일이 존재하나요?\n2. 경로가 올바른가요?\n3. 다시 시도해주세요.');
                     progressBar.classList.remove('active');
                 };
-
-                // 타임아웃 설정 (10초)
-                loadTimeout = setTimeout(() => {
-                    console.error('[CANVAS-ERROR] 배경 이미지 로드 타임아웃 (10초)');
-                    alert('❌ 배경 이미지 로드 시간 초과\n다시 시도해주세요.');
-                    progressBar.classList.remove('active');
-                }, 10000);
 
                 // Step 5 템플릿 이미지 로드
                 const selectedTemplate = templates.find(t => t.id === formData.imageTemplate);
@@ -1108,7 +1113,11 @@
                     return;
                 }
 
-                console.log('[CANVAS-DEBUG] 템플릿 이미지 로드 중:', selectedTemplate.name);
+                console.log('%c[INIT] 템플릿 이미지 로드 시작', 'color: blue; font-weight: bold;', {
+                    templateId: selectedTemplate.id,
+                    templateName: selectedTemplate.name,
+                    baseImagePath: selectedTemplate.image
+                });
 
                 // 템플릿 이미지 경로 - 환경별 자동 처리
                 let templatePath = selectedTemplate.image;
@@ -1117,16 +1126,30 @@
                 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
                     // 로컬 서버: /images/ebasel.png
                     templatePath = '/' + selectedTemplate.image;
+                    console.log('🖥️ 로컬 서버 감지');
                 } else if (window.location.hostname.includes('github.io')) {
                     // GitHub Pages: /20-10-00-Image_Creation/images/ebasel.png
                     templatePath = '/20-10-00-Image_Creation/' + selectedTemplate.image;
+                    console.log('🌐 GitHub Pages 감지');
                 }
 
-                console.log('[CANVAS-DEBUG] 환경:', window.location.hostname);
-                console.log('[CANVAS-DEBUG] 템플릿 경로:', templatePath);
-                console.log('[CANVAS-DEBUG] 이미지 크기:', selectedTemplate);
+                console.log('%c[PATH] 최종 템플릿 경로', 'color: orange; font-weight: bold;', {
+                    hostname: window.location.hostname,
+                    resolvedPath: templatePath
+                });
 
+                // 타임아웃 설정 (10초)
+                loadTimeout = setTimeout(() => {
+                    if (!onloadTriggered) {
+                        console.error('%c⏱️ 템플릿 이미지 로드 타임아웃 (10초)', 'color: red; font-size: 14px;');
+                        alert('❌ 템플릿 이미지 로드 시간 초과\n다시 시도해주세요.');
+                        progressBar.classList.remove('active');
+                    }
+                }, 10000);
+
+                console.log('%c[SRC] 이미지 src 할당 중...', 'color: purple; font-weight: bold;');
                 baseImg.src = templatePath;
+                console.log('%c[SRC] 이미지 로드 시작됨', 'color: purple; font-weight: bold;');
             }, 1000);
         }
 

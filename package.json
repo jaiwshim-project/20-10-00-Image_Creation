@@ -17,6 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",
+    "canvas": "^3.2.3",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^4.18.2",
