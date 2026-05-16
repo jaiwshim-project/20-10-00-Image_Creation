@@ -64,7 +64,8 @@
       "Bash(cp \"C:\\\\Users\\\\USER\\\\Downloads\\\\GEO1.png\" \"C:\\\\01 클로드코드\\\\40-10-00 홍보 이미지 제작 플랫폼\\\\images\\\\geo.png\")",
       "Bash(cp \"C:\\\\Users\\\\USER\\\\Downloads\\\\MedVo1.png\" \"C:\\\\01 클로드코드\\\\40-10-00 홍보 이미지 제작 플랫폼\\\\images\\\\medvo.png\")",
       "Bash(cp \"C:\\\\Users\\\\USER\\\\Downloads\\\\GEO-MedVo1.png\" \"C:\\\\01 클로드코드\\\\40-10-00 홍보 이미지 제작 플랫폼\\\\images\\\\geo-medvo.png\")",
-      "Bash(git commit -m 'feat: 로컬 이미지 파일을 템플릿으로 추가 *)"
+      "Bash(git commit -m 'feat: 로컬 이미지 파일을 템플릿으로 추가 *)",
+      "Bash(git commit -m 'fix: GitHub Pages subdirectory 호환성 - base href 추가 *)"
     ]
   }
 }
