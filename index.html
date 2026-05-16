@@ -1111,7 +1111,13 @@
                 console.log('[CANVAS-DEBUG] 템플릿 이미지 로드 중:', selectedTemplate.name);
 
                 // 템플릿 이미지를 배경으로 설정
-                baseImg.src = selectedTemplate.image;
+                // base href와 상관없이 정확한 경로 사용
+                const templatePath = selectedTemplate.image.startsWith('/')
+                    ? selectedTemplate.image
+                    : '/20-10-00-Image_Creation/' + selectedTemplate.image;
+
+                console.log('[CANVAS-DEBUG] 이미지 경로:', templatePath);
+                baseImg.src = templatePath;
             }, 1000);
         }
 
