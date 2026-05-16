@@ -1110,13 +1110,22 @@
 
                 console.log('[CANVAS-DEBUG] 템플릿 이미지 로드 중:', selectedTemplate.name);
 
-                // 템플릿 이미지를 배경으로 설정
-                // base href와 상관없이 정확한 경로 사용
-                const templatePath = selectedTemplate.image.startsWith('/')
-                    ? selectedTemplate.image
-                    : '/20-10-00-Image_Creation/' + selectedTemplate.image;
+                // 템플릿 이미지 경로 - 환경별 자동 처리
+                let templatePath = selectedTemplate.image;
 
-                console.log('[CANVAS-DEBUG] 이미지 경로:', templatePath);
+                // 로컬 서버 vs GitHub Pages 자동 감지
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    // 로컬 서버: /images/ebasel.png
+                    templatePath = '/' + selectedTemplate.image;
+                } else if (window.location.hostname.includes('github.io')) {
+                    // GitHub Pages: /20-10-00-Image_Creation/images/ebasel.png
+                    templatePath = '/20-10-00-Image_Creation/' + selectedTemplate.image;
+                }
+
+                console.log('[CANVAS-DEBUG] 환경:', window.location.hostname);
+                console.log('[CANVAS-DEBUG] 템플릿 경로:', templatePath);
+                console.log('[CANVAS-DEBUG] 이미지 크기:', selectedTemplate);
+
                 baseImg.src = templatePath;
             }, 1000);
         }
