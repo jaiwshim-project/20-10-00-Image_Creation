@@ -923,12 +923,22 @@
 
                 baseImg.onload = () => {
                     if (loadTimeout) clearTimeout(loadTimeout);
-                    console.log('✅ 배경 이미지 로드 성공:', {
+                    console.log('✅ 템플릿 이미지 로드 성공:', {
                         width: baseImg.width,
                         height: baseImg.height,
                         src: baseImg.src.substring(0, 50) + '...'
                     });
                     updateProgress(25, '이미지 처리 중...');
+
+                    // Step 2 자료 이미지 준비
+                    const materialImg = new Image();
+                    let materialLoaded = false;
+
+                    if (materialBase64) {
+                        materialImg.onload = () => { materialLoaded = true; };
+                        materialImg.onerror = () => { console.warn('⚠️ 자료 이미지 로드 실패'); };
+                        materialImg.src = materialBase64;
+                    }
 
                     // 5가지 색상 모두에 대해 이미지 생성
                     colorVariants.forEach((color, colorIndex) => {
@@ -940,8 +950,15 @@
                             canvas.height = 1024;
                             const ctx = canvas.getContext('2d');
 
-                            // 자료 이미지 그리기
+                            // 1️⃣ 템플릿 이미지 (Step 5에서 선택한 템플릿)를 배경으로 그리기
                             ctx.drawImage(baseImg, 0, 0, 1024, 1024);
+
+                            // 2️⃣ Step 2 자료 이미지가 있으면 위에 overlay (투명도 35%)
+                            if (materialLoaded && materialImg.complete) {
+                                ctx.globalAlpha = 0.35;
+                                ctx.drawImage(materialImg, 0, 0, 1024, 1024);
+                                ctx.globalAlpha = 1.0;
+                            }
 
                             // 색상 그래디언트 오버레이
                             const gradient = ctx.createLinearGradient(0, 0, 0, 1024);
@@ -1084,12 +1101,17 @@
                     progressBar.classList.remove('active');
                 }, 10000);
 
-                console.log('[CANVAS-DEBUG] baseImg.src 설정 중:', {
-                    dataLength: materialBase64.length,
-                    startsWith: materialBase64.substring(0, 30) + '...'
-                });
+                // Step 5 템플릿 이미지 로드
+                const selectedTemplate = templates.find(t => t.id === formData.imageTemplate);
+                if (!selectedTemplate) {
+                    alert('❌ 템플릿을 선택해주세요');
+                    return;
+                }
 
-                baseImg.src = materialBase64;
+                console.log('[CANVAS-DEBUG] 템플릿 이미지 로드 중:', selectedTemplate.name);
+
+                // 템플릿 이미지를 배경으로 설정
+                baseImg.src = selectedTemplate.image;
             }, 1000);
         }
 
