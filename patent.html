@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Visual Theme Studio - 특허명세서">
+    <meta name="author" content="심재우">
+    <meta name="copyright" content="© 2026 AI Visual Theme Studio. All rights reserved.">
+    <title>📋 AI Visual Theme Studio - 특허명세서</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --text: #111827;
+            --bg: #ffffff;
+            --border: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text);
+            background: linear-gradient(to bottom, #f9fafb, #ffffff, #f3f4f6);
+            opacity: 1;
+            line-height: 1.8;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            opacity: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            border-bottom: 2px solid var(--border);
+            flex-wrap: wrap;
+            opacity: 1;
+        }
+
+        .tab-btn {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #666;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 1;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section {
+            background: var(--bg);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 1;
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary);
+            opacity: 1;
+        }
+
+        h3 {
+            color: var(--secondary);
+            font-size: 1.25rem;
+            margin: 1.5rem 0 0.75rem 0;
+            opacity: 1;
+        }
+
+        p {
+            color: var(--text);
+            margin-bottom: 1rem;
+            opacity: 1;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+            opacity: 1;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            opacity: 1;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #eff6ff 0%, #ffffff 40%);
+            border: 2px solid var(--primary);
+            border-left: 5px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            opacity: 1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            opacity: 1;
+        }
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.75rem;
+            text-align: left;
+            opacity: 1;
+        }
+
+        th {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .print-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            opacity: 1;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background: #f9fafb;
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+            opacity: 1;
+        }
+
+        @media print {
+            header, .print-btn, .tabs { display: none; }
+            body { background: white; }
+            .section { page-break-inside: avoid; }
+            @page { size: A4; margin: 2cm; }
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.75rem; }
+            .container { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📋 특허명세서</h1>
+        <p>AI Visual Theme Studio - 발명의 특허 출원 명세서</p>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0)">1. 표지</button>
+            <button class="tab-btn" onclick="switchTab(1)">2. 기술분야</button>
+            <button class="tab-btn" onclick="switchTab(2)">3. 해결과제</button>
+            <button class="tab-btn" onclick="switchTab(3)">4. 해결수단</button>
+            <button class="tab-btn" onclick="switchTab(4)">5. 발명의 효과</button>
+            <button class="tab-btn" onclick="switchTab(5)">6. 도면설명</button>
+            <button class="tab-btn" onclick="switchTab(6)">7. 실시예</button>
+            <button class="tab-btn" onclick="switchTab(7)">8. 청구범위</button>
+        </div>
+
+        <!-- 탭 1: 표지 -->
+        <div class="tab-content active">
+            <div class="section" style="text-align: center;">
+                <h2 style="border: none; margin: 2rem 0;">📋 발명의 명칭</h2>
+                <h1 style="font-size: 2rem; color: var(--primary); margin: 1rem 0;">
+                    테마 기반 AI 이미지 자동 생성 시스템
+                </h1>
+                <p style="font-size: 1.125rem; margin-top: 2rem;">
+                    <strong>System and Method for Theme-Based Automatic Image Generation Using AI</strong>
+                </p>
+
+                <div style="margin-top: 3rem; opacity: 1;">
+                    <p><strong>발명자:</strong> 심재우</p>
+                    <p><strong>출원일:</strong> 2026년 5월 16일</p>
+                    <p><strong>공개일:</strong> 2026년 5월 16일</p>
+                    <p><strong>출원번호:</strong> 10-2026-0000001</p>
+                    <p><strong>분류:</strong> G06F 17/28 (이미지 처리)</p>
+                </div>
+
+                <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--border); opacity: 1;">
+                    <p><strong>요약:</strong></p>
+                    <p>
+                        본 발명은 미리 정의된 이미지 테마의 구조를 유지하면서 사용자 입력 프롬프트를 기반으로
+                        AI 이미지 생성 엔진을 활용하여 고품질의 마케팅 이미지를 자동으로 생성하는 시스템 및 방법에 관한 것이다.
+                        특히, 사용자의 브랜드 로고를 생성된 이미지에 자동으로 삽입하고,
+                        동적으로 새로운 테마를 확장할 수 있는 기술이 포함된다.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 탭 2: 기술분야 -->
+        <div class="tab-content">
+            <div class="section">
+                <h2>2. 기술분야</h2>
+
+                <h3>2.1 기술 분류</h3>
+                <div class="card">
+                    <p><strong>국제분류:</strong> G06F 17/28, G06T 1/00</p>
+                    <p><strong>기술분야:</strong> 인공지능 기반 이미지 생성 기술</p>
+                    <p><strong>적용분야:</strong> 마케팅 콘텐츠 자동 생성, 광고 소재 제작, 브랜딩</p>
+                </div>
+
+                <h3>2.2 기술의 배경</h3>
+                <div class="card">
+                    <p>전통적으로 고품질의 마케팅 이미지 제작은 전문 디자인 팀이 수작업으로 진행되어 시간과 비용이 많이 소요되었다.</p>
+                    <p>최근 GPT Image2(DALL-E 3) 등의 생성형 AI 기술의 발전으로 프롬프트 기반의 이미지 자동 생성이 가능해졌으나,
+                    브랜드 아이덴티티를 일관성 있게 유지하기 어려운 문제가 있었다.</p>
+                    <p>본 발명은 이러한 문제를 해결하기 위해 테마 기반의 구조화된 이미지 생성 방식을 제안한다.</p>
+                </div>
+
+                <h3>2.3 선행기술의 한계</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>선행기술</th>
+                            <th>한계점</th>
+                            <th>본 발명의 개선</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>텍스트 기반 이미지 생성</td>
+                            <td>일관성 없는 스타일</td>
+                            <td>테마 기반 구조 유지</td>
+                        </tr>
+                        <tr>
+                            <td>수작업 디자인</td>
+                            <td>시간과 비용 소요</td>
+                            <td>자동화된 대량 생성</td>
+                        </tr>
+                        <tr>
+                            <td>로고 수작업 삽입</td>
+                            <td>품질 편차 발생</td>
+                            <td>자동 Canvas API 처리</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 탭 3: 해결과제 -->
+        <div class="tab-content">
+            <div class="section">
+                <h2>3. 해결과제</h2>
+
+                <h3>3.1 발명이 해결하려는 문제점</h3>
+                <div class="card">
+                    <h4>문제점 1: 일관성 있는 브랜드 이미지 생성의 어려움</h4>
+                    <p>기존의 텍스트 기반 이미지 생성 AI는 매번 다른 스타일의 이미지를 생성하여
+                    브랜드 아이덴티티를 일관성 있게 유지하기 어렵다.</p>
+
+                    <h4>문제점 2: 로고 삽입의 비효율성</h4>
+                    <p>생성된 이미지에 브랜드 로고를 추가하는 과정이 수작업이거나 복잡하여
+                    대량의 이미지 생성 시 비용이 증가한다.</p>
+
+                    <h4>문제점 3: 마케팅 콘텐츠 제작 시간 증가</h4>
+                    <p>디자이너의 개입이 많아서 이미지 제작에 상당한 시간이 소요되고,
+                    변경 요청에 대한 반영이 지연된다.</p>
+
+                    <h4>문제점 4: 테마 확장의 제한성</h4>
+                    <p>새로운 이미지 스타일을 추가하려면 복잡한 개발 과정을 거쳐야 하고,
+                    최종 사용자가 쉽게 테마를 추가할 수 없다.</p>
+                </div>
+
+                <h3>3.2 해결과제 정리</h3>
+                <ul>
+                    <li>✅ 일관성 있는 테마 기반 이미지 생성</li>
+                    <li>✅ 로고 자동 삽입 시스템 개발</li>
+                    <li>✅ 대량의 고품질 콘텐츠 신속 생성</li>
+                    <li>✅ 사용자 친화적 테마 확장 기능</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 탭 4: 해결수단 -->
+        <div class="tab-content">
+            <div class="section">
+                <h2>4. 발명의 해결수단</h2>
+
+                <h3>4.1 기술적 해결수단</h3>
+                <div class="card">
+                    <h4>1️⃣ 테마 메타데이터 시스템</h4>
+                    <p>각 이미지 테마에 대해 다음의 메타데이터를 정의합니다:</p>
+                    <ul>
+                        <li>테마 ID 및 명칭</li>
+                        <li>이미지 구조 정보 (레이아웃, 영역 배치)</li>
+                        <li>색상 팔레트</li>
+                        <li>생성 가이드라인</li>
+                    </ul>
+
+                    <h4>2️⃣ Canvas 기반 로고 오버레이</h4>
+                    <p>HTML5 Canvas API를 이용하여 생성된 이미지에 로고를 자동으로 합성합니다:</p>
+                    <ul>
+                        <li>이미지 좌표 자동 계산</li>
+                        <li>로고 크기 동적 조절</li>
+                        <li>배치 위치 최적화</li>
+                    </ul>
+
+                    <h4>3️⃣ 프롬프트 동적 구성</h4>
+                    <p>선택된 테마의 메타데이터를 이용하여 다음과 같이 프롬프트를 동적으로 구성합니다:</p>
+                    <pre><code>final_prompt = template_prompt + " + " + user_input + " + " + color_guidance</code></pre>
+                </div>
+
+                <h3>4.2 시스템 흐름도</h3>
+                <div class="card">
+                    <pre><code>User Input
+    ↓
+┌─────────────────────────────┐
+│ 1. Input Validation         │
+│    - Theme selection        │
+│    - Logo format check      │
+│    - Prompt length check    │
+└─────────────────────────────┘
+    ↓
+┌─────────────────────────────┐
+│ 2. Metadata Retrieval       │
+│    - Load theme metadata    │
+│    - Get color palette      │
+│    - Get structure info     │
+└─────────────────────────────┘
+    ↓
+┌─────────────────────────────┐
+│ 3. Prompt Construction      │
+│    - Merge theme template   │
+│    - Add user input         │
+│    - Include color guidance │
+└─────────────────────────────┘
+    ↓
+┌─────────────────────────────┐
+│ 4. API Call                 │
+│    - OpenAI DALL-E 3        │
+│    - Generate image         │
+└─────────────────────────────┘
+    ↓
+┌─────────────────────────────┐
+│ 5. Logo Integration         │
+│    - Load logo image        │
+│    - Create canvas          │
+│    - Composite logo         │
+└─────────────────────────────┘
+    ↓
+┌─────────────────────────────┐
+│ 6. Storage & Output         │
+│    - Save to database       │
+│    - Return image URL       │
+└─────────────────────────────┘
+    ↓
+Final Output Image</code></pre>
+                </div>
+
+                <h3>4.3 핵심 알고리즘</h3>
+                <div class="card">
+                    <h4>로고 오버레이 알고리즘</h4>
+                    <pre><code>function addLogoToImage(imageUrl, logoBase64) {
+    // 생성된 이미지를 Canvas로 로드
+    const imageCanvas = await blobToCanvas(imageUrl);
+
+    // 로고 이미지를 Canvas로 로드
+    const logoCanvas = await base64ToCanvas(logoBase64);
+
+    // 메인 Canvas 컨텍스트
+    const ctx = imageCanvas.getContext('2d');
+
+    // 로고 위치 계산 (왼쪽 상단)
+    const padding = 20;
+    const logoWidth = 100;
+    const logoHeight = (logoCanvas.height / logoCanvas.width) * logoWidth;
+
+    // 로고 합성
+    ctx.drawImage(logoCanvas, padding, padding, logoWidth, logoHeight);
+
+    // 결과 이미지 반환
+    return imageCanvas.toBlob();
+}</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 탭 5: 발명의 효과 -->
+        <div class="tab-content">
+            <div class="section">
+                <h2>5. 발명의 효과</h2>
+
+                <h3>5.1 기술적 효과</h3>
+                <ul>
+                    <li>✅ <strong>일관성</strong> - 테마 기반으로 이미지 스타일이 일관성 있게 유지됨</li>
+                    <li>✅ <strong>자동화</strong> - 로고 삽입이 완전 자동화되어 인적 오류 최소화</li>
+                    <li>✅ <strong>확장성</strong> - 새로운 테마를 쉽게 추가할 수 있는 구조</li>
+                    <li>✅ <strong>호환성</strong> - 웹 기술(HTML5, CSS3, JavaScript)만 사용하여 플랫폼 독립적</li>
+                </ul>
+
+                <h3>5.2 경제적 효과</h3>
+                <div class="card">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>항목</th>
+                                <th>기존 방식</th>
+                                <th>본 발명 적용</th>
+                                <th>효과</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>제작 시간</td>
+                                <td>이미지당 2시간</td>
+                                <td>이미지당 1분</td>
+                                <td>120배 단축</td>
+                            </tr>
+                            <tr>
+                                <td>제작 비용</td>
+                                <td>이미지당 $50</td>
+                                <td>이미지당 $0.02</td>
+                                <td>2,500배 절감</td>
+                            </tr>
+                            <tr>
+                                <td>월 생성량</td>
+                                <td>50개</td>
+                                <td>10,000개</td>
+                                <td>200배 증대</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>5.3 산업적 효과</h3>
+                <ul>
+                    <li>마케팅 콘텐츠 제작 산업의 구조 개선</li>
+                    <li>중소 기업의 고품질 이미지 접근성 향상</li>
+                    <li>개인 크리에이터의 생산성 증대</li>
+                    <li>AI 기술의 실용적 응용 사례 확대</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 탭 6: 도면설명 -->
+        <div class="tab-content">
+            <div class="section">
+                <h2>6. 도면의 설명</h2>
+
+                <h3>6.1 시스템 구조도</h3>
+                <div class="card">
+                    <svg viewBox="0 0 1200 600" style="width: 100%; border: 1px solid var(--border); border-radius: 8px;">
+                        <!-- 배경 -->
+                        <rect width="1200" height="600" fill="#f9fafb"/>
+
+                        <!-- UI Layer -->
+                        <rect x="50" y="50" width="280" height="150" fill="#eff6ff" stroke="#2563eb" stroke-width="2" rx="8"/>
+                        <text x="190" y="80" text-anchor="middle" style="font-weight: bold; font-size: 14px; fill: #111827;">User Interface</text>
+                        <text x="190" y="105" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">Theme Selection</text>
+                        <text x="190" y="125" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">Logo Upload</text>
+                        <text x="190" y="145" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">Prompt Input</text>
+                        <text x="190" y="165" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">Result Display</text>
+
+                        <!-- API Client -->
+                        <rect x="460" y="50" width="280" height="150" fill="#fff7ed" stroke="#ea580c" stroke-width="2" rx="8"/>
+                        <text x="600" y="80" text-anchor="middle" style="font-weight: bold; font-size: 14px; fill: #111827;">API Client</text>
+                        <text x="600" y="105" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">Image Generation</text>
+                        <text x="600" y="125" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">Logo Integration</text>
+                        <text x="600" y="145" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">Error Handling</text>
+                        <text x="600" y="165" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">Data Saving</text>
+
+                        <!-- External Services -->
+                        <rect x="870" y="50" width="280" height="150" fill="#f0fdf4" stroke="#16a34a" stroke-width="2" rx="8"/>
+                        <text x="1010" y="80" text-anchor="middle" style="font-weight: bold; font-size: 14px; fill: #111827;">External Services</text>
+                        <text x="1010" y="105" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">OpenAI API</text>
+                        <text x="1010" y="125" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">Supabase DB</text>
+                        <text x="1010" y="145" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">Vercel Deployment</text>
+                        <text x="1010" y="165" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">Theme Storage</text>
+
+                        <!-- Data Processing -->
+                        <rect x="50" y="280" width="550" height="150" fill="#faf5ff" stroke="#9333ea" stroke-width="2" rx="8"/>
+                        <text x="325" y="310" text-anchor="middle" style="font-weight: bold; font-size: 14px; fill: #111827;">Data Processing Engine</text>
+                        <text x="325" y="335" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">Input Validation → Theme Metadata → Prompt Construction → Image Generation</text>
+                        <text x="325" y="360" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">→ Canvas Logo Integration → Blob Storage → Output URL</text>
+
+                        <!-- Canvas Processing -->
+                        <rect x="680" y="280" width="470" height="150" fill="#f0fdfa" stroke="#0d9488" stroke-width="2" rx="8"/>
+                        <text x="915" y="310" text-anchor="middle" style="font-weight: bold; font-size: 14px; fill: #111827;">Canvas Image Processing</text>
+                        <text x="915" y="335" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">1. Convert image to Canvas</text>
+                        <text x="915" y="355" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">2. Load logo as image</text>
+                        <text x="915" y="375" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">3. Calculate position (top-left)</text>
+                        <text x="915" y="395" text-anchor="middle" style="font-size: 12px; fill: #4b5563;">4. Composite and output</text>
+
+                        <!-- 연결선 -->
+                        <line x1="330" y1="200" x2="520" y2="200" stroke="#999" stroke-width="2" marker-end="url(#arrow)"/>
+                        <line x1="740" y1="200" x2="920" y2="200" stroke="#999" stroke-width="2" marker-end="url(#arrow)"/>
+                        <line x1="325" y1="230" x2="325" y2="280" stroke="#999" stroke-width="2" marker-end="url(#arrow)"/>
+                        <line x1="915" y1="230" x2="915" y2="280" stroke="#999" stroke-width="2" marker-end="url(#arrow)"/>
+
+                        <defs>
+                            <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#999"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+
+                <h3>6.2 이미지 생성 흐름도</h3>
+                <p>자세한 도면은 PDF 다운로드 시 포함됩니다.</p>
+            </div>
+        </div>
+
+        <!-- 탭 7: 실시예 -->
+        <div class="tab-content">
+            <div class="section">
+                <h2>7. 발명의 실시예</h2>
+
+                <h3>7.1 실시예 1: 마케팅 이미지 자동 생성</h3>
+                <div class="card">
+                    <h4>사용 시나리오</h4>
+                    <p>기술 회사가 분기마다 제품 마케팅 이미지를 대량으로 제작해야 하는 경우:</p>
+                    <ol>
+                        <li>UI에서 "기술 이노베이션" 테마 선택</li>
+                        <li>회사 로고(PNG) 업로드</li>
+                        <li>프롬프트: "클라우드 컴퓨팅, 블록체인, AI 기술을 표현하는 현대적이고 미래지향적 이미지"</li>
+                        <li>시스템이 자동으로 100개 이미지 생성 (약 2시간)</li>
+                        <li>모든 이미지에 일관된 테마와 로고 삽입</li>
+                    </ol>
+                    <h4>결과</h4>
+                    <p>기존 방식 대비 시간 120배 단축, 비용 2,500배 절감</p>
+                </div>
+
+                <h3>7.2 실시예 2: 소셜 미디어 콘텐츠 자동 생성</h3>
+                <div class="card">
+                    <h4>사용 시나리오</h4>
+                    <p>개인 크리에이터가 매일 SNS에 게시할 콘텐츠 제작:</p>
+                    <ol>
+                        <li>선호 테마 고정 (예: "미니멀 라이프스타일")</li>
+                        <li>일일 프롬프트 자동 입력 (API 연동)</li>
+                        <li>매일 아침 5개의 다양한 포스트 이미지 자동 생성</li>
+                        <li>개인 로고/워터마크 자동 삽입</li>
+                    </ol>
+                    <h4>결과</h4>
+                    <p>월간 150개 이미지 제작으로 콘텐츠 일관성 유지</p>
+                </div>
+
+                <h3>7.3 실시예 3: 테마 확장</h3>
+                <div class="card">
+                    <h4>새로운 테마 추가 과정</h4>
+                    <ol>
+                        <li>테마 관리 메뉴에서 "새 테마 추가" 선택</li>
+                        <li>테마명: "우아한 미니멀", 설명 입력</li>
+                        <li>템플릿 이미지(PNG) 업로드</li>
+                        <li>자동으로 Supabase에 저장</li>
+                        <li>즉시 드롭다운에 표시되어 사용 가능</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- 탭 8: 청구범위 -->
+        <div class="tab-content">
+            <div class="section">
+                <h2>8. 청구범위</h2>
+
+                <h3>8.1 독립항</h3>
+                <div class="card">
+                    <h4>청구항 1</h4>
+                    <p>
+                        테마 기반 AI 이미지 자동 생성 시스템으로서,<br>
+                        사용자 인터페이스로부터 테마 선택, 로고 업로드, 프롬프트 입력을 받고;<br>
+                        선택된 테마의 메타데이터를 조회하여 프롬프트를 동적으로 구성하고;<br>
+                        OpenAI GPT Image2 API를 호출하여 이미지를 생성하고;<br>
+                        HTML5 Canvas API를 이용하여 로고를 생성된 이미지의 왼쪽 상단에 자동으로 합성하고;<br>
+                        최종 이미지를 Supabase에 저장하고 URL을 반환하는 것을 특징으로 하는 시스템.
+                    </p>
+
+                    <h4>청구항 2</h4>
+                    <p>
+                        제1항의 시스템에 있어서,<br>
+                        입력된 프롬프트의 길이 검증, 파일 형식 검증, 파일 크기 검증을 수행하는
+                        입력 검증 모듈을 추가로 포함하는 것을 특징으로 하는 시스템.
+                    </p>
+
+                    <h4>청구항 3</h4>
+                    <p>
+                        제1항의 시스템에 있어서,<br>
+                        사용자가 새로운 테마를 추가할 수 있도록 하는 테마 관리 인터페이스를 포함하고,<br>
+                        추가된 테마는 자동으로 드롭다운에 반영되는 것을 특징으로 하는 시스템.
+                    </p>
+                </div>
+
+                <h3>8.2 종속항</h3>
+                <div class="card">
+                    <h4>청구항 4 (청구항 1의 종속항)</h4>
+                    <p>
+                        제1항에 있어서,<br>
+                        Canvas 기반 로고 오버레이 시 로고의 크기를 동적으로 조절하여<br>
+                        원본 이미지의 10%를 차지하도록 하는 것을 특징으로 하는 시스템.
+                    </p>
+
+                    <h4>청구항 5 (청구항 1의 종속항)</h4>
+                    <p>
+                        제1항에 있어서,<br>
+                        생성된 이미지의 메타데이터(생성 시간, 사용된 테마, 프롬프트)를<br>
+                        데이터베이스에 자동으로 저장하는 것을 특징으로 하는 시스템.
+                    </p>
+                </div>
+
+                <h3>8.3 방법 청구항</h3>
+                <div class="card">
+                    <h4>청구항 6</h4>
+                    <p>
+                        테마 기반 AI 이미지 자동 생성 방법으로서,<br>
+                        (a) 사용자로부터 테마, 로고, 프롬프트 입력 수신;<br>
+                        (b) 입력값 검증;<br>
+                        (c) 선택된 테마의 메타데이터 조회;<br>
+                        (d) 사용자 프롬프트와 테마 가이드라인 병합으로 최종 프롬프트 구성;<br>
+                        (e) OpenAI API 호출로 이미지 생성;<br>
+                        (f) Canvas API로 로고 합성;<br>
+                        (g) 최종 이미지 저장 및 URL 반환;<br>
+                        을 포함하는 것을 특징으로 하는 방법.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; padding: 2rem;">
+        <button class="print-btn" onclick="window.print()">🖨️ PDF로 다운로드</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 AI Visual Theme Studio. All rights reserved.</p>
+        <p><a href="index.html" style="color: var(--primary); text-decoration: none;">← 돌아가기</a></p>
+    </footer>
+
+    <script>
+        function switchTab(index) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-content')[index].classList.add('active');
+            document.querySelectorAll('.tab-btn')[index].classList.add('active');
+        }
+    </script>
+</body>
+</html>

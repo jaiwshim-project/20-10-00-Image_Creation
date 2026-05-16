@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>샘플 이미지 생성</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .status {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        h1 {
+            color: #333;
+        }
+        .log {
+            text-align: left;
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 14px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .log-line {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 샘플 이미지 생성</h1>
+    <p>DB 테스트를 위한 샘플 데이터를 자동으로 생성합니다.</p>
+
+    <button onclick="generateSample()" id="generateBtn">샘플 생성 시작</button>
+
+    <div id="status" class="status info" style="display:none;"></div>
+    <div class="log" id="log"></div>
+
+    <div id="links" style="display:none; margin-top: 30px;">
+        <h2>✅ 생성 완료!</h2>
+        <p>다음 페이지에서 생성된 이미지를 확인하세요:</p>
+        <a href="gallery.html" style="display: inline-block; margin: 10px; padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 4px;">
+            📸 갤러리 보기
+        </a>
+        <a href="index.html" style="display: inline-block; margin: 10px; padding: 10px 20px; background: #17a2b8; color: white; text-decoration: none; border-radius: 4px;">
+            🎯 더 많은 이미지 생성
+        </a>
+    </div>
+
+    <script>
+        let sampleClient = null;
+
+        function log(message) {
+            const logDiv = document.getElementById('log');
+            const line = document.createElement('div');
+            line.className = 'log-line';
+            line.textContent = message;
+            logDiv.appendChild(line);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        async function generateSample() {
+            try {
+                const btn = document.getElementById('generateBtn');
+                btn.disabled = true;
+                document.getElementById('log').innerHTML = '';
+
+                // 1. Supabase 초기화
+                log('🔄 Supabase 초기화 중...');
+                const response = await fetch('/api/config');
+                const config = await response.json();
+
+                const { createClient } = window.supabase;
+                sampleClient = createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY);
+                log('✅ Supabase 연결 완료');
+
+                // 2. 샘플 데이터 준비
+                log('\n📌 샘플 데이터 준비:');
+                log('  - 주제: 2026년 봄 신상품 출시');
+                log('  - 산업분야: 기술/IT');
+                log('  - 이미지: 5가지 컬러');
+
+                // 3. generation 삽입
+                log('\n📝 Generation 레코드 생성 중...');
+                const { data: genData, error: genError } = await supabase
+                    .from('generations')
+                    .insert([{
+                        subject: '2026년 봄 신상품 출시 - AI 기반 마케팅',
+                        industry: 'tech',
+                        template: 'template1',
+                        contact: 'contact@example.com',
+                        forbidden_words: '스팸,광고,사기',
+                        material_preview: 'sample.png',
+                        logo_preview: 'logo.png'
+                    }])
+                    .select();
+
+                if (genError) {
+                    throw new Error(`Generation 생성 실패: ${genError.message}`);
+                }
+
+                const genId = genData[0].id;
+                log(`✅ Generation 생성 완료 (ID: ${genId})`);
+
+                // 4. images 삽입
+                log('\n🎨 이미지 색상 정보 생성 중...');
+
+                const colors = [
+                    { name: '기본색', hex: '#2563eb' },
+                    { name: '어두운색', hex: '#1d4ed8' },
+                    { name: '밝은색', hex: '#60a5fa' },
+                    { name: '파스텔색', hex: '#93c5fd' },
+                    { name: '그레이스케일', hex: '#6b7280' }
+                ];
+
+                const imageRows = colors.map(c => ({
+                    generation_id: genId,
+                    color_name: c.name,
+                    color_hex: c.hex
+                }));
+
+                const { data: imgData, error: imgError } = await supabase
+                    .from('images')
+                    .insert(imageRows)
+                    .select();
+
+                if (imgError) {
+                    throw new Error(`이미지 생성 실패: ${imgError.message}`);
+                }
+
+                imgData.forEach((img, idx) => {
+                    log(`  ${idx + 1}. ${img.color_name} (${img.color_hex})`);
+                });
+
+                log(`✅ 이미지 ${imgData.length}개 생성 완료`);
+
+                // 완료
+                log('\n' + '='.repeat(50));
+                log('🎉 샘플 이미지 생성 완료!');
+                log('='.repeat(50));
+
+                document.getElementById('status').className = 'status success';
+                document.getElementById('status').textContent = '✅ 샘플 데이터가 성공적으로 생성되었습니다!';
+                document.getElementById('status').style.display = 'block';
+                document.getElementById('links').style.display = 'block';
+
+            } catch (error) {
+                log(`\n❌ 오류: ${error.message}`);
+
+                if (error.message.includes('row violates row-level security')) {
+                    log('\n⚠️  RLS 정책 오류 해결:');
+                    log('1. Supabase 대시보드 열기');
+                    log('2. SQL Editor → New Query');
+                    log('3. 다음 SQL 실행:');
+                    log('   ALTER TABLE generations DISABLE ROW LEVEL SECURITY;');
+                    log('   ALTER TABLE images DISABLE ROW LEVEL SECURITY;');
+                    log('   ALTER TABLE custom_themes DISABLE ROW LEVEL SECURITY;');
+                    log('4. 다시 샘플 생성 시도');
+                }
+
+                document.getElementById('status').className = 'status error';
+                document.getElementById('status').textContent = '❌ 오류 발생: ' + error.message;
+                document.getElementById('status').style.display = 'block';
+                document.getElementById('generateBtn').disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

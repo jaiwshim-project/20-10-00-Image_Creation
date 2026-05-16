@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Visual Theme Studio - 사용자 매뉴얼">
+    <meta name="author" content="심재우">
+    <meta name="copyright" content="© 2026 AI Visual Theme Studio. All rights reserved.">
+    <title>📖 AI Visual Theme Studio - 사용자 매뉴얼</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #7c3aed;
+            --accent-color: #0d9488;
+            --text-primary: #111827;
+            --text-secondary: #4b5563;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --border-color: #e5e7eb;
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            color: var(--text-primary);
+            background: linear-gradient(to bottom, #f9fafb, #ffffff, #f3f4f6);
+            line-height: 1.6;
+            opacity: 1;
+        }
+
+        /* ==================== 헤더 ==================== */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--bg-primary);
+            border-bottom: 2px solid var(--primary-color);
+            padding: 1.5rem 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .print-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ==================== 메인 컨테이너 ==================== */
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+
+        /* ==================== 사이드바 목차 ==================== */
+
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            background: var(--bg-primary);
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .sidebar h3 {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-list li {
+            margin: 0.5rem 0;
+        }
+
+        .toc-list a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.925rem;
+            padding: 0.5rem;
+            border-left: 3px solid transparent;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .toc-list a:hover {
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+            padding-left: 1rem;
+        }
+
+        /* ==================== 메인 콘텐츠 ==================== */
+
+        .content {
+            background: var(--bg-primary);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            opacity: 1;
+        }
+
+        /* ==================== 섹션 ==================== */
+
+        section {
+            margin-bottom: 3rem;
+            page-break-inside: avoid;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        section h3 {
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            margin: 1.5rem 0 0.75rem 0;
+        }
+
+        section h4 {
+            font-size: 1.125rem;
+            color: var(--secondary-color);
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            opacity: 1;
+        }
+
+        /* ==================== 카드 스타일 ==================== */
+
+        .card {
+            background: var(--bg-secondary);
+            border: 2px solid var(--primary-color);
+            border-left: 5px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+            page-break-inside: avoid;
+        }
+
+        .card.warning {
+            border-left-color: #ea580c;
+            border-color: #fed7aa;
+            background: linear-gradient(135deg, #fff7ed 0%, #ffffff 40%);
+        }
+
+        .card.success {
+            border-left-color: #16a34a;
+            border-color: #bbf7d0;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 40%);
+        }
+
+        .card.info {
+            border-left-color: var(--accent-color);
+            border-color: #99f6e4;
+            background: linear-gradient(135deg, #f0fdfa 0%, #ffffff 40%);
+        }
+
+        .card h4 {
+            margin-top: 0;
+        }
+
+        /* ==================== 리스트 ==================== */
+
+        ul, ol {
+            margin: 1rem 0 1rem 2rem;
+            opacity: 1;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            opacity: 1;
+        }
+
+        /* ==================== 스텝 카드 ==================== */
+
+        .step-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .step-card {
+            background: var(--bg-secondary);
+            border: 3px solid var(--primary-color);
+            border-left: 5px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            page-break-inside: avoid;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:nth-child(1) {
+            border-color: #2563eb;
+            border-left-color: #2563eb;
+            background: linear-gradient(135deg, #eff6ff 0%, #ffffff 40%);
+        }
+
+        .step-card:nth-child(2) {
+            border-color: #ea580c;
+            border-left-color: #ea580c;
+            background: linear-gradient(135deg, #fff7ed 0%, #ffffff 40%);
+        }
+
+        .step-card:nth-child(3) {
+            border-color: #16a34a;
+            border-left-color: #16a34a;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 40%);
+        }
+
+        .step-card:nth-child(4) {
+            border-color: #9333ea;
+            border-left-color: #9333ea;
+            background: linear-gradient(135deg, #faf5ff 0%, #ffffff 40%);
+        }
+
+        .step-card:nth-child(5) {
+            border-color: var(--accent-color);
+            border-left-color: var(--accent-color);
+            background: linear-gradient(135deg, #f0fdfa 0%, #ffffff 40%);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            line-height: 40px;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .step-card h4 {
+            margin-top: 0;
+            color: var(--text-primary);
+        }
+
+        .step-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            opacity: 1;
+        }
+
+        /* ==================== FAQ ==================== */
+
+        .faq-item {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            margin: 1rem 0;
+            overflow: hidden;
+            page-break-inside: avoid;
+        }
+
+        .faq-question {
+            background: linear-gradient(135deg, #eff6ff 0%, #ffffff 40%);
+            border-left: 5px solid var(--primary-color);
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: linear-gradient(135deg, #dbeafe 0%, #ffffff 40%);
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 1.5rem;
+            background: var(--bg-primary);
+            display: none;
+            color: var(--text-primary);
+            opacity: 1;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* ==================== 팁 박스 ==================== */
+
+        .tip-box {
+            background: linear-gradient(135deg, #f0fdfa 0%, #ffffff 40%);
+            border: 2px solid var(--accent-color);
+            border-left: 5px solid var(--accent-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .tip-box strong {
+            color: var(--accent-color);
+        }
+
+        /* ==================== 코드 블록 ==================== */
+
+        code {
+            background: var(--bg-tertiary);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #dc2626;
+            opacity: 1;
+        }
+
+        pre {
+            background: #1f2937;
+            color: #f3f4f6;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            opacity: 1;
+        }
+
+        pre code {
+            background: none;
+            color: #f3f4f6;
+            padding: 0;
+        }
+
+        /* ==================== 테이블 ==================== */
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            page-break-inside: avoid;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        }
+
+        th {
+            border: 2px solid var(--primary-color);
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            color: var(--text-primary);
+            opacity: 1;
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        /* ==================== 푸터 ==================== */
+
+        footer {
+            background: var(--bg-secondary);
+            border-top: 2px solid var(--border-color);
+            padding: 2rem;
+            margin-top: 3rem;
+            text-align: center;
+            color: var(--text-secondary);
+            opacity: 1;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ==================== 반응형 ==================== */
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .step-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* ==================== 인쇄 스타일 ==================== */
+
+        @media print {
+            header,
+            .print-btn,
+            .sidebar {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+                padding: 0;
+            }
+
+            .hero {
+                page-break-after: always;
+            }
+
+            section,
+            .card,
+            .step-card,
+            .faq-item {
+                page-break-inside: avoid;
+            }
+
+            @page {
+                size: A4;
+                margin: 2cm;
+            }
+        }
+
+        /* ==================== 유틸리티 ==================== */
+
+        .highlight {
+            background: #fef3c7;
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header>
+        <div class="header-content">
+            <div class="header-title">📖 AI Visual Theme Studio 매뉴얼</div>
+            <button class="print-btn" onclick="window.print()">🖨️ PDF/인쇄</button>
+        </div>
+    </header>
+
+    <!-- 메인 컨테이너 -->
+    <div class="container">
+        <!-- 사이드바 목차 -->
+        <aside class="sidebar">
+            <h3>📑 목차</h3>
+            <ul class="toc-list">
+                <li><a href="#intro">소개</a></li>
+                <li><a href="#quick-start">빠른 시작</a></li>
+                <li><a href="#features">주요 기능</a></li>
+                <li><a href="#guide">사용 가이드</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#support">지원</a></li>
+            </ul>
+        </aside>
+
+        <!-- 메인 콘텐츠 -->
+        <main class="content">
+            <!-- 히어로 섹션 -->
+            <div class="hero">
+                <h1>🎨 AI Visual Theme Studio</h1>
+                <p>이미지 테마 기반 자동 생성 플랫폼으로 브랜드 이미지를 쉽게 만들어보세요.</p>
+            </div>
+
+            <!-- 섹션: 소개 -->
+            <section id="intro">
+                <h2>소개</h2>
+                <p>AI Visual Theme Studio는 미리 정의된 테마를 기반으로 고품질의 이미지를 자동으로 생성하는 플랫폼입니다.</p>
+
+                <h3>주요 특징</h3>
+                <ul>
+                    <li><strong>테마 기반 생성</strong> - DB에 등록된 이미지 테마 중 원하는 것을 선택</li>
+                    <li><strong>로고 통합</strong> - 브랜드 로고를 생성 이미지에 자동으로 삽입</li>
+                    <li><strong>자유로운 커스터마이징</strong> - 프롬프트로 이미지 내용 자유롭게 지정</li>
+                    <li><strong>테마 관리</strong> - 새로운 테마를 추가하여 플랫폼 확장</li>
+                    <li><strong>고속 생성</strong> - GPT Image2 기술로 고품질 이미지 신속 생성</li>
+                </ul>
+            </section>
+
+            <!-- 섹션: 빠른 시작 -->
+            <section id="quick-start">
+                <h2>빠른 시작</h2>
+                <p>5단계로 처음부터 끝까지 이미지를 생성하는 과정을 설명합니다.</p>
+
+                <div class="step-grid">
+                    <div class="step-card">
+                        <div class="step-number">1</div>
+                        <h4>테마 선택</h4>
+                        <p>드롭다운에서 원하는 이미지 스타일의 테마를 선택합니다.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">2</div>
+                        <h4>로고 업로드</h4>
+                        <p>회사 또는 브랜드 로고 이미지를 업로드합니다.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">3</div>
+                        <h4>프롬프트 입력</h4>
+                        <p>생성할 이미지의 상세한 설명을 입력합니다.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <h4>이미지 생성</h4>
+                        <p>생성 버튼을 클릭하여 이미지를 생성합니다.</p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number">5</div>
+                        <h4>다운로드</h4>
+                        <p>생성된 이미지를 다운로드하거나 URL을 복사합니다.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 섹션: 주요 기능 -->
+            <section id="features">
+                <h2>주요 기능</h2>
+
+                <h3>🎯 이미지 생성</h3>
+                <div class="card">
+                    <p>선택한 테마와 프롬프트를 기반으로 AI가 고품질의 이미지를 자동으로 생성합니다.</p>
+                    <h4>생성 옵션</h4>
+                    <ul>
+                        <li><strong>테마</strong> - 이미지 스타일과 구조를 결정</li>
+                        <li><strong>프롬프트</strong> - 최대 2,000자의 상세한 설명</li>
+                        <li><strong>로고</strong> - 왼쪽 상단에 자동 삽입</li>
+                    </ul>
+                </div>
+
+                <h3>🎨 테마 관리</h3>
+                <div class="card info">
+                    <p>기존 테마를 조회하고 새로운 테마를 추가하여 플랫폼을 확장합니다.</p>
+                    <h4>테마 추가 방법</h4>
+                    <ol>
+                        <li>테마 관리 탭에서 "새 테마 추가" 버튼 클릭</li>
+                        <li>테마 이름, 설명, 템플릿 이미지 입력</li>
+                        <li>"테마 추가" 버튼 클릭하여 저장</li>
+                        <li>추가된 테마는 드롭다운에 자동으로 반영</li>
+                    </ol>
+                </div>
+
+                <h3>📊 이미지 크기 옵션</h3>
+                <p>생성할 이미지 크기를 선택할 수 있습니다:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>크기</th>
+                            <th>설명</th>
+                            <th>용도</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>256×256</td>
+                            <td>가장 작은 크기</td>
+                            <td>아이콘, 썸네일</td>
+                        </tr>
+                        <tr>
+                            <td>512×512</td>
+                            <td>소형</td>
+                            <td>SNS 프로필</td>
+                        </tr>
+                        <tr>
+                            <td>1024×1024</td>
+                            <td>표준 (기본)</td>
+                            <td>일반 사용</td>
+                        </tr>
+                        <tr>
+                            <td>1792×1024</td>
+                            <td>가로형</td>
+                            <td>배너, 헤더</td>
+                        </tr>
+                        <tr>
+                            <td>1024×1792</td>
+                            <td>세로형</td>
+                            <td>포스터, 스토리</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 섹션: 사용 가이드 -->
+            <section id="guide">
+                <h2>사용 가이드</h2>
+
+                <h3>📝 효과적인 프롬프트 작성 팁</h3>
+                <div class="card success">
+                    <h4>✅ 좋은 프롬프트 예시</h4>
+                    <p>"세련된 블루와 화이트 색상의 현대적인 기술 회의 장면, 전문가들이 테이블 주변에 앉아 있고, 대형 화면에 그래프가 표시되고 있음, 밝고 미니멀한 스타일"</p>
+                </div>
+
+                <div class="card warning">
+                    <h4>❌ 피해야 할 프롬프트</h4>
+                    <p>"회의 이미지" - 너무 모호함</p>
+                    <p>"멋진 업무 사진" - 세부사항 부족</p>
+                </div>
+
+                <h3>🏷️ 로고 업로드 가이드</h3>
+                <ul>
+                    <li><strong>지원 형식</strong> - JPEG, PNG, WebP, GIF</li>
+                    <li><strong>파일 크기</strong> - 최대 5MB</li>
+                    <li><strong>권장 크기</strong> - 정사각형 (1:1 비율)</li>
+                    <li><strong>배치 위치</strong> - 생성 이미지의 왼쪽 상단</li>
+                </ul>
+
+                <div class="tip-box">
+                    💡 <strong>팁:</strong> 로고는 배경이 투명한 PNG 형식을 사용하면 더 깔끔한 결과를 얻을 수 있습니다.
+                </div>
+
+                <h3>⬇️ 다운로드 및 공유</h3>
+                <ol>
+                    <li>이미지 생성 완료 후 "다운로드" 버튼 클릭</li>
+                    <li>또는 "URL 복사"로 링크를 얻어 다른 곳에 삽입</li>
+                    <li>생성된 이미지는 JPG 형식으로 저장됨</li>
+                </ol>
+
+                <h3>🔄 여러 이미지 생성</h3>
+                <p>동일한 테마로 여러 개의 이미지를 생성하려면:</p>
+                <ol>
+                    <li>프롬프트만 변경하고 "이미지 생성" 클릭</li>
+                    <li>또는 "초기화" 버튼으로 처음부터 다시 시작</li>
+                    <li>모든 생성 이력은 자동으로 저장됨</li>
+                </ol>
+            </section>
+
+            <!-- 섹션: FAQ -->
+            <section id="faq">
+                <h2>자주 묻는 질문 (FAQ)</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>이미지 생성에 얼마나 걸리나요?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>일반적으로 30초에서 1분 정도 소요됩니다. 로고 통합 등의 처리로 인해 약간의 추가 시간이 필요할 수 있습니다.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>생성된 이미지를 상업적으로 사용할 수 있나요?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>예, 생성된 이미지는 자유롭게 사용할 수 있습니다. 단, 서비스 이용약관을 반드시 확인하세요.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>테마를 직접 만들 수 있나요?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>네! 테마 관리 탭에서 새로운 테마를 추가할 수 있습니다. 테마의 이름, 설명, 템플릿 이미지를 입력하면 됩니다.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>프롬프트에 제약이 있나요?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>프롬프트는 최대 2,000자까지 입력 가능합니다. 더 상세한 설명을 입력할수록 원하는 결과에 더 가깝게 생성됩니다.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>생성 이력을 확인할 수 있나요?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>모든 생성 이력은 자동으로 저장됩니다. 향후 버전에서 이력 관리 기능이 추가될 예정입니다.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>로고 없이 이미지를 생성할 수 있나요?</span>
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>현재 버전에서는 로고 업로드가 필수입니다. 향후 선택사항으로 변경될 예정입니다.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 섹션: 지원 -->
+            <section id="support">
+                <h2>지원 및 피드백</h2>
+
+                <h3>문제가 발생했을 때</h3>
+                <div class="card">
+                    <ol>
+                        <li>페이지를 새로고침해보세요</li>
+                        <li>브라우저 캐시를 삭제해보세요</li>
+                        <li>다른 브라우저로 시도해보세요</li>
+                        <li>문제가 지속되면 아래의 지원 채널로 연락주세요</li>
+                    </ol>
+                </div>
+
+                <h3>📧 피드백 및 문의</h3>
+                <p>제안, 버그 리포트, 기타 문의사항은 다음 채널을 통해 주세요:</p>
+                <ul>
+                    <li><strong>이메일</strong> - <a href="mailto:support@example.com">support@example.com</a></li>
+                    <li><strong>GitHub Issues</strong> - <a href="#">Issue 등록</a></li>
+                    <li><strong>피드백 폼</strong> - 앱 내 설정 메뉴</li>
+                </ul>
+
+                <h3>버전 정보</h3>
+                <p>
+                    <span class="badge">VERSION</span>
+                    AI Visual Theme Studio v1.0.0
+                </p>
+                <p>
+                    <span class="badge">BUILD</span>
+                    2026-05-16
+                </p>
+                <p>
+                    <span class="badge">STATUS</span>
+                    <span style="background: #16a34a; padding: 0.25rem 0.5rem; border-radius: 4px; color: white;">Production Ready</span>
+                </p>
+            </section>
+        </main>
+    </div>
+
+    <!-- 푸터 -->
+    <footer>
+        <p>&copy; 2026 AI Visual Theme Studio. All rights reserved.</p>
+        <p><a href="index.html">← 돌아가기</a></p>
+    </footer>
+
+    <script>
+        // FAQ 아코디언 기능
+        document.querySelectorAll('.faq-question').forEach((question) => {
+            question.addEventListener('click', () => {
+                const item = question.closest('.faq-item');
+                item.classList.toggle('active');
+            });
+        });
+
+        // 스크롤 시 사이드바 목차 활성화
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const links = document.querySelectorAll('.toc-list a');
+
+            sections.forEach((section, index) => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 150 && rect.bottom >= 150) {
+                    links.forEach((link) => link.style.borderLeftColor = 'transparent');
+                    links[index].style.borderLeftColor = 'var(--primary-color)';
+                    links[index].style.color = 'var(--primary-color)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

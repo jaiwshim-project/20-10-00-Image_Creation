@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사용 가이드 - AI Visual Theme Studio</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(to bottom, #f9fafb, #ffffff, #f3f4f6);
+            color: #111827;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: #1f2937;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            color: #6b7280;
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .guide-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 4px solid #2563eb;
+            transition: all 0.3s ease;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .guide-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .guide-card p {
+            color: #6b7280;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .guide-card ol {
+            margin-left: 1.5rem;
+            color: #6b7280;
+        }
+
+        .guide-card li {
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .faq-section h2 {
+            margin-bottom: 1.5rem;
+            color: #111827;
+            font-size: 1.5rem;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: #2563eb;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .faq-answer {
+            color: #6b7280;
+            display: none;
+            margin-top: 0.75rem;
+            line-height: 1.8;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-icon.active {
+            transform: rotate(180deg);
+        }
+
+        .tips-section {
+            background: #f0f9ff;
+            border-left: 4px solid #2563eb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .tips-section h4 {
+            color: #2563eb;
+            margin-bottom: 0.5rem;
+        }
+
+        .tips-section p {
+            color: #374151;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            background: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 네비게이션 -->
+    <div class="navbar">
+        <div class="navbar-content">
+            <div class="logo">🎨 AI Visual Theme Studio</div>
+            <ul class="nav-links">
+                <li><a href="index.html">🎯 이미지 생성</a></li>
+                <li><a href="themes.html">🎨 테마 관리</a></li>
+                <li><a href="guide.html">📖 사용 가이드</a></li>
+                <li><a href="gallery.html">📸 갤러리</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 메인 컨텐츠 -->
+    <div class="container">
+        <div class="header">
+            <h1>📖 사용 가이드</h1>
+            <p>AI Visual Theme Studio를 효과적으로 사용하는 방법을 알아보세요.</p>
+        </div>
+
+        <!-- 6단계 가이드 -->
+        <div class="guide-grid">
+            <div class="guide-card">
+                <h3>📝 Step 1: 주제 입력</h3>
+                <p>프로모션의 핵심 주제를 입력합니다.</p>
+                <ul style="margin-left: 1.5rem; color: #6b7280;">
+                    <li>최대 200자까지 입력 가능</li>
+                    <li>간결하고 명확한 주제를 작성</li>
+                    <li>특수문자도 포함 가능</li>
+                </ul>
+            </div>
+
+            <div class="guide-card">
+                <h3>📂 Step 2: 자료 업로드</h3>
+                <p>배경이 될 자료 파일을 업로드합니다.</p>
+                <ul style="margin-left: 1.5rem; color: #6b7280;">
+                    <li>PDF, Markdown, DOCX 파일 지원</li>
+                    <li>또는 배경으로 사용할 이미지</li>
+                    <li>파일 크기는 5MB 이하 권장</li>
+                </ul>
+            </div>
+
+            <div class="guide-card">
+                <h3>🏷️ Step 3: 로고 입력</h3>
+                <p>회사나 브랜드 로고를 업로드합니다.</p>
+                <ul style="margin-left: 1.5rem; color: #6b7280;">
+                    <li>PNG, JPEG 형식 지원</li>
+                    <li>투명 배경(PNG) 권장</li>
+                    <li>이미지 우측 하단에 자동 배치</li>
+                </ul>
+            </div>
+
+            <div class="guide-card">
+                <h3>📞 Step 4: 연락처 입력</h3>
+                <p>생성된 이미지에 표시할 연락처를 입력합니다.</p>
+                <ul style="margin-left: 1.5rem; color: #6b7280;">
+                    <li>이메일 주소 또는 전화번호</li>
+                    <li>최대 100자까지 입력 가능</li>
+                    <li>이미지 하단 중앙에 표시</li>
+                </ul>
+            </div>
+
+            <div class="guide-card">
+                <h3>🎨 Step 5A: 산업분야 선택</h3>
+                <p>15개의 산업분야 중 하나를 선택합니다.</p>
+                <ul style="margin-left: 1.5rem; color: #6b7280;">
+                    <li>기술/IT, 금융/뱅킹, 의료/헬스 등</li>
+                    <li>선택한 분야의 테마 색상 적용</li>
+                    <li>그래디언트 오버레이로 표현</li>
+                </ul>
+            </div>
+
+            <div class="guide-card">
+                <h3>⛔ Step 6: 금기어 입력</h3>
+                <p>이미지에 포함하면 안 되는 단어들을 입력합니다.</p>
+                <ul style="margin-left: 1.5rem; color: #6b7280;">
+                    <li>쉼표로 구분하여 여러 단어 입력 가능</li>
+                    <li>최대 500자까지 입력 가능</li>
+                    <li>이미지에 빨간색으로 강조 표시</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- FAQ 섹션 -->
+        <div class="faq-section">
+            <h2>❓ 자주 묻는 질문</h2>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="toggle-icon">▼</span>
+                    생성된 이미지 크기는 몇 x 몇 입니까?
+                </div>
+                <div class="faq-answer">
+                    생성되는 이미지는 1024x1024 픽셀 크기입니다. 다양한 용도(웹, SNS, 인쇄)에 활용할 수 있습니다.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="toggle-icon">▼</span>
+                    이미지를 다시 생성할 수 있습니까?
+                </div>
+                <div class="faq-answer">
+                    물론입니다. 초기화 버튼으로 폼을 비우고 다시 입력한 후 생성하면 됩니다. 같은 설정으로 생성해도 매번 새로운 결과를 얻습니다.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="toggle-icon">▼</span>
+                    자료 파일이 반드시 필요합니까?
+                </div>
+                <div class="faq-answer">
+                    네, 자료 파일은 이미지의 배경으로 사용되므로 필수입니다. PDF, 마크다운, DOCX 파일이나 이미지를 선택하실 수 있습니다.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="toggle-icon">▼</span>
+                    이미지는 어디에 저장됩니까?
+                </div>
+                <div class="faq-answer">
+                    생성된 이미지는 브라우저에서만 처리되며, 다운로드 버튼으로 로컬에 저장하거나 URL 복사로 클립보드에 복사할 수 있습니다. 서버에는 저장되지 않습니다.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="toggle-icon">▼</span>
+                    금기어 기능은 무엇입니까?
+                </div>
+                <div class="faq-answer">
+                    금기어는 이미지에 포함하면 안 되는 단어들을 표시하는 기능입니다. 입력한 금기어들은 생성된 이미지 우측 하단에 빨간색으로 강조되어 표시됩니다.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span class="toggle-icon">▼</span>
+                    로고 이미지 크기는 어떻게 됩니까?
+                </div>
+                <div class="faq-answer">
+                    로고는 이미지 좌측 상단에 120x120 픽셀 크기로 배치됩니다. 너무 크거나 작지 않도록 적절한 크기의 로고를 준비하는 것을 권장합니다.
+                </div>
+            </div>
+        </div>
+
+        <!-- 팁 섹션 -->
+        <div style="margin-top: 3rem;">
+            <h2 style="margin-bottom: 1.5rem; color: #111827; font-size: 1.5rem;">💡 유용한 팁</h2>
+
+            <div class="tips-section">
+                <h4>최고의 결과를 위한 조언</h4>
+                <ul style="margin-left: 1.5rem; color: #374151;">
+                    <li><strong>고대비 배경:</strong> 자료 파일의 배경색이 밝을수록 텍스트 가독성이 좋습니다.</li>
+                    <li><strong>로고 품질:</strong> 투명한 배경의 PNG 로고를 사용하면 더 전문적으로 보입니다.</li>
+                    <li><strong>주제 텍스트:</strong> 한 줄당 10-15자 정도로 유지하면 가독성이 높습니다.</li>
+                    <li><strong>산업분야 선택:</strong> 실제 사업과 관련된 분야를 선택하면 일관성 있는 이미지가 만들어집니다.</li>
+                    <li><strong>금기어 관리:</strong> 부정적인 단어나 제약사항이 있는 단어들을 입력하세요.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <div class="footer">
+        <p>&copy; 2026 AI Visual Theme Studio. All rights reserved.</p>
+    </div>
+
+    <script>
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('.toggle-icon');
+
+            // 모든 답변 닫기
+            document.querySelectorAll('.faq-answer').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.querySelectorAll('.toggle-icon').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // 선택된 답변 열기
+            answer.classList.add('active');
+            icon.classList.add('active');
+        }
+
+        console.log('✅ 사용 가이드 페이지 로드됨');
+    </script>
+</body>
+</html>

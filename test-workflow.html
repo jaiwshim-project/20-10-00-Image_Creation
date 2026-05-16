@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>워크플로우 테스트</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #2563eb;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 { color: #111827; margin-bottom: 10px; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 4px; font-weight: bold; }
+        .pass { background: #d1fae5; color: #065f46; }
+        .fail { background: #fee2e2; color: #991b1b; }
+        .info { background: #dbeafe; color: #0c4a6e; }
+        button { padding: 10px 15px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #1d4ed8; }
+        code { background: #f3f4f6; padding: 2px 4px; border-radius: 2px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <h1>🧪 AI Visual Theme Studio 워크플로우 테스트</h1>
+
+    <div class="test-section">
+        <h2>✅ 검사 항목</h2>
+        <div id="checks"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📋 테스트 결과</h2>
+        <button onclick="runAllTests()">🚀 모든 테스트 실행</button>
+        <div id="results" style="margin-top: 15px;"></div>
+    </div>
+
+    <script>
+        const checks = [
+            { name: 'index.html 파일 존재', file: 'index.html' },
+            { name: 'themes.html 파일 존재', file: 'themes.html' },
+            { name: 'guide.html 파일 존재', file: 'guide.html' },
+            { name: '샘플 이미지 (에바셀2.png)', file: '../../../Users/USER/Downloads/에바셀2.png' },
+            { name: '샘플 이미지 (선거5.png)', file: '../../../Users/USER/Downloads/선거5.png' },
+            { name: '샘플 이미지 (GEO2.png)', file: '../../../Users/USER/Downloads/GEO2.png' },
+            { name: '샘플 이미지 (MedVo1.png)', file: '../../../Users/USER/Downloads/MedVo1.png' }
+        ];
+
+        function initChecks() {
+            const checksDiv = document.getElementById('checks');
+            checksDiv.innerHTML = checks.map((check, i) => `
+                <div style="margin-bottom: 8px;">
+                    <span>${i + 1}.</span> ${check.name}
+                    <span id="check-${i}" style="float: right;">⏳ 검사중...</span>
+                </div>
+            `).join('');
+        }
+
+        async function runAllTests() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<p class="info">🔄 테스트 실행 중...</p>';
+
+            let passed = 0;
+            let failed = 0;
+            const results = [];
+
+            // 테스트 1: 파일 존재 확인
+            for (let i = 0; i < checks.length; i++) {
+                try {
+                    const response = await fetch(checks[i].file);
+                    if (response.ok) {
+                        results.push(`<p class="status pass">✅ ${checks[i].name}: 성공</p>`);
+                        passed++;
+                        document.getElementById(`check-${i}`).textContent = '✅';
+                    } else {
+                        results.push(`<p class="status fail">❌ ${checks[i].name}: 실패 (Status ${response.status})</p>`);
+                        failed++;
+                        document.getElementById(`check-${i}`).textContent = '❌';
+                    }
+                } catch (error) {
+                    results.push(`<p class="status fail">❌ ${checks[i].name}: 오류 - ${error.message}</p>`);
+                    failed++;
+                    document.getElementById(`check-${i}`).textContent = '❌';
+                }
+            }
+
+            // 테스트 2: 기능 검증
+            results.push('<hr>');
+            results.push('<h3>기능 검증</h3>');
+
+            // Canvas API 테스트
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.width = 1024;
+                canvas.height = 1024;
+                const ctx = canvas.getContext('2d');
+
+                if (ctx && canvas.toDataURL) {
+                    results.push(`<p class="status pass">✅ Canvas API: 지원됨</p>`);
+                    passed++;
+                } else {
+                    results.push(`<p class="status fail">❌ Canvas API: 미지원</p>`);
+                    failed++;
+                }
+            } catch (error) {
+                results.push(`<p class="status fail">❌ Canvas API: 오류</p>`);
+                failed++;
+            }
+
+            // FileReader API 테스트
+            if (typeof FileReader !== 'undefined') {
+                results.push(`<p class="status pass">✅ FileReader API: 지원됨</p>`);
+                passed++;
+            } else {
+                results.push(`<p class="status fail">❌ FileReader API: 미지원</p>`);
+                failed++;
+            }
+
+            // localStorage 테스트
+            try {
+                localStorage.setItem('test', 'ok');
+                localStorage.removeItem('test');
+                results.push(`<p class="status pass">✅ localStorage: 지원됨</p>`);
+                passed++;
+            } catch (error) {
+                results.push(`<p class="status fail">❌ localStorage: 미지원</p>`);
+                failed++;
+            }
+
+            // 최종 결과
+            results.push('<hr>');
+            results.push(`<h3>최종 결과</h3>`);
+            results.push(`<p class="info">✅ 성공: ${passed} | ❌ 실패: ${failed}</p>`);
+
+            if (failed === 0) {
+                results.push(`<p class="status pass"><strong>🎉 모든 테스트 통과!</strong></p>`);
+                results.push(`<p style="margin: 10px 0;">✅ 플랫폼이 정상 작동합니다.</p>`);
+                results.push(`<p style="margin: 10px 0;"><strong>다음 단계:</strong></p>`);
+                results.push(`<ol style="margin: 10px 0 10px 20px;">`);
+                results.push(`<li><a href="index.html" target="_blank">index.html</a> 열기</li>`);
+                results.push(`<li>Step 1-6 모든 항목 입력</li>`);
+                results.push(`<li>"✨ 프로모션 이미지 생성" 클릭</li>`);
+                results.push(`<li>F12 개발자 도구 Console 탭에서 진행 상황 확인</li>`);
+                results.push(`<li>5가지 컬러 테마 이미지가 생성되는지 확인</li>`);
+                results.push(`</ol>`);
+            } else {
+                results.push(`<p class="status fail"><strong>⚠️ 일부 테스트 실패</strong></p>`);
+                results.push(`<p>위의 결과를 확인하고 누락된 파일을 추가하거나 환경을 확인하세요.</p>`);
+            }
+
+            resultsDiv.innerHTML = results.join('');
+        }
+
+        // 페이지 로드 시 검사 항목 표시
+        initChecks();
+        console.log('✅ 테스트 페이지 로드됨');
+    </script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Step 6 테스트</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .form-group {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .char-count {
+            text-align: right;
+            color: #666;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+        #preview {
+            background: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            border: 2px solid #2563eb;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎯 Step 6: 금기어 입력 테스트</h1>
+
+    <div class="form-group">
+        <label for="forbidden-words">⛔ 금기어 입력</label>
+        <textarea id="forbidden-words" placeholder="이미지에 포함하면 안 되는 단어들을 쉼표로 구분하여 입력해주세요..."></textarea>
+        <div class="char-count">
+            <span id="forbidden-count">0</span> / 500자
+        </div>
+    </div>
+
+    <button onclick="testGenerate()">✨ 테스트 생성</button>
+
+    <div id="preview"></div>
+
+    <script>
+        // Step 6 입력 처리
+        const forbiddenWordsInput = document.getElementById('forbidden-words');
+        forbiddenWordsInput.addEventListener('input', (e) => {
+            const count = e.target.value.length;
+            document.getElementById('forbidden-count').textContent = count;
+            console.log('✅ 금기어:', e.target.value);
+        });
+
+        // 테스트 생성
+        function testGenerate() {
+            const forbiddenWords = document.getElementById('forbidden-words').value;
+            const preview = document.getElementById('preview');
+
+            // 1024x1024 canvas 생성
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024;
+            canvas.height = 1024;
+            const ctx = canvas.getContext('2d');
+
+            // 배경
+            const gradient = ctx.createLinearGradient(0, 0, 1024, 1024);
+            gradient.addColorStop(0, '#2563eb');
+            gradient.addColorStop(1, '#1e40af');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 1024, 1024);
+
+            // 제목 텍스트
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 48px Arial';
+            ctx.textAlign = 'center';
+            ctx.shadowColor = '#000';
+            ctx.shadowBlur = 10;
+            ctx.fillText('Step 6 테스트', 512, 300);
+
+            // 금기어 표시 (가장 중요하게 반영)
+            if (forbiddenWords && forbiddenWords.trim()) {
+                ctx.font = 'bold 20px Arial';
+                ctx.fillStyle = '#FF6B6B'; // 빨간색 강조
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = '#000';
+                ctx.textAlign = 'center';
+                ctx.fillText(`⛔ 금기어: ${forbiddenWords}`, 512, 500);
+            }
+
+            // 연락처 (아래)
+            ctx.font = '18px Arial';
+            ctx.fillStyle = 'white';
+            ctx.fillText('test@example.com', 512, 900);
+
+            // 이미지로 변환
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                preview.innerHTML = `
+                    <h3>생성된 이미지</h3>
+                    <img src="${url}" style="width: 100%; max-width: 400px; border-radius: 8px;">
+                    <p style="margin-top: 10px;">금기어: <strong>${forbiddenWords || '(없음)'}</strong></p>
+                `;
+            });
+        }
+
+        console.log('✅ Step 6 테스트 페이지 로드됨');
+    </script>
+</body>
+</html>

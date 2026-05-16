@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Visual Theme Studio - 저작권 등록 자료">
+    <meta name="author" content="심재우">
+    <meta name="copyright" content="© 2026 AI Visual Theme Studio. All rights reserved.">
+    <title>📜 AI Visual Theme Studio - 저작권 등록 자료</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #7c3aed;
+            --accent: #0d9488;
+            --text: #111827;
+            --text-light: #4b5563;
+            --bg: #ffffff;
+            --bg-light: #f9fafb;
+            --border: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text);
+            background: linear-gradient(to bottom, #f9fafb, #ffffff, #f3f4f6);
+            opacity: 1;
+            line-height: 1.8;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            opacity: 1;
+        }
+
+        header p {
+            font-size: 1.125rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            border-bottom: 2px solid var(--border);
+            flex-wrap: wrap;
+            opacity: 1;
+        }
+
+        .tab-btn {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: var(--text-light);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            opacity: 1;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section {
+            background: var(--bg);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            opacity: 1;
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--primary);
+            opacity: 1;
+        }
+
+        h3 {
+            color: var(--secondary);
+            font-size: 1.25rem;
+            margin: 1.5rem 0 0.75rem 0;
+            opacity: 1;
+        }
+
+        h4 {
+            color: var(--text);
+            font-size: 1.125rem;
+            margin: 1rem 0 0.5rem 0;
+            opacity: 1;
+        }
+
+        p {
+            color: var(--text);
+            margin-bottom: 1rem;
+            opacity: 1;
+        }
+
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+            opacity: 1;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            opacity: 1;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #eff6ff 0%, #ffffff 40%);
+            border: 2px solid var(--primary);
+            border-left: 5px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            opacity: 1;
+        }
+
+        .card.accent {
+            background: linear-gradient(135deg, #f0fdfa 0%, #ffffff 40%);
+            border-color: var(--accent);
+            border-left-color: var(--accent);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            opacity: 1;
+        }
+
+        th {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            color: var(--text);
+            padding: 1rem;
+            text-align: left;
+            border: 2px solid var(--primary);
+            font-weight: 700;
+            opacity: 1;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border);
+            color: var(--text);
+            opacity: 1;
+        }
+
+        tbody tr:nth-child(even) {
+            background: var(--bg-light);
+        }
+
+        code {
+            background: #f3f4f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #dc2626;
+            opacity: 1;
+        }
+
+        pre {
+            background: #1f2937;
+            color: #f3f4f6;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            opacity: 1;
+        }
+
+        pre code {
+            color: #f3f4f6;
+            background: none;
+        }
+
+        .stat {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            opacity: 1;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            margin: 1rem 0;
+            opacity: 1;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background: var(--bg-light);
+            border-top: 2px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--text-light);
+            opacity: 1;
+        }
+
+        @media print {
+            header, .download-btn, .tabs {
+                display: none;
+            }
+            body {
+                background: white;
+            }
+            .section {
+                page-break-inside: avoid;
+            }
+            @page {
+                size: A4;
+                margin: 2cm;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.75rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+            .tabs {
+                flex-direction: column;
+            }
+            .tab-btn {
+                width: 100%;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📜 저작권 등록 자료</h1>
+        <p>AI Visual Theme Studio - 프로그램 저작권 명세서</p>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(0)">1. 프로그램 개요</button>
+            <button class="tab-btn" onclick="switchTab(1)">2. 기능 명세</button>
+            <button class="tab-btn" onclick="switchTab(2)">3. 시스템 구조</button>
+            <button class="tab-btn" onclick="switchTab(3)">4. 독창적 요소</button>
+            <button class="tab-btn" onclick="switchTab(4)">5. 창작 이력</button>
+            <button class="tab-btn" onclick="switchTab(5)">6. 저작권 선언</button>
+            <button class="tab-btn" onclick="switchTab(6)">7. 구조도</button>
+        </div>
+
+        <!-- 탭 1: 프로그램 개요 -->
+        <div class="tab-content active">
+            <div class="section">
+                <h2>1. 프로그램 개요</h2>
+
+                <h3>프로그램 명</h3>
+                <p><strong>AI Visual Theme Studio</strong></p>
+
+                <h3>개발자/저작권자</h3>
+                <p>심재우 (jaiwshim@gmail.com)</p>
+
+                <h3>개발 시작일</h3>
+                <p>2026년 5월 16일</p>
+
+                <h3>프로그램 설명</h3>
+                <div class="card">
+                    <p>AI Visual Theme Studio는 미리 정의된 이미지 테마를 기반으로 GPT Image2(DALL-E 3) AI 엔진을 사용하여 고품질의 마케팅 이미지를 자동으로 생성하는 웹 기반 플랫폼입니다.</p>
+                    <p>사용자가 테마를 선택하고 프롬프트를 입력하면, 시스템이 자동으로 이미지를 생성하고 사용자의 로고를 왼쪽 상단에 삽입하는 기능을 제공합니다.</p>
+                </div>
+
+                <h3>프로그램의 특징</h3>
+                <ul>
+                    <li>🎯 <strong>테마 기반 생성</strong> - 사전에 정의된 이미지 구조와 스타일 기반 생성</li>
+                    <li>🏷️ <strong>자동 로고 삽입</strong> - Canvas API를 이용한 로고 오버레이 기능</li>
+                    <li>🎨 <strong>무제한 테마 확장</strong> - 사용자가 새로운 테마를 추가할 수 있는 기능</li>
+                    <li>📊 <strong>생성 이력 관리</strong> - Supabase를 통한 데이터베이스 저장</li>
+                    <li>📱 <strong>반응형 디자인</strong> - 모바일/태블릿/데스크톱 완벽 지원</li>
+                    <li>🔒 <strong>보안</strong> - 환경 변수를 통한 API 키 관리</li>
+                </ul>
+
+                <h3>기술 스택</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>분류</th>
+                            <th>기술</th>
+                            <th>버전</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Frontend</td>
+                            <td>HTML5, CSS3, JavaScript (ES6+)</td>
+                            <td>Latest</td>
+                        </tr>
+                        <tr>
+                            <td>Image AI</td>
+                            <td>OpenAI GPT Image2 (DALL-E 3)</td>
+                            <td>Latest</td>
+                        </tr>
+                        <tr>
+                            <td>Database</td>
+                            <td>Supabase (PostgreSQL)</td>
+                            <td>Latest</td>
+                        </tr>
+                        <tr>
+                            <td>Deployment</td>
+                            <td>Vercel</td>
+                            <td>Latest</td>
+                        </tr>
+                        <tr>
+                            <td>Design</td>
+                            <td>CSS Grid, Flexbox</td>
+                            <td>Modern</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>프로그램 규모</h3>
+                <div class="card">
+                    <p>
+                        <span class="stat">HTML: 3 파일</span>
+                        <span class="stat">CSS: 2 파일</span>
+                        <span class="stat">JavaScript: 4 파일</span>
+                        <span class="stat">총 라인 수: ~2,500 줄</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 탭 2: 기능 명세 -->
+        <div class="tab-content">
+            <div class="section">
+                <h2>2. 기능 명세</h2>
+
+                <h3>2.1 메인 기능 - 이미지 생성</h3>
+                <div class="card">
+                    <h4>기능 설명</h4>
+                    <p>사용자가 선택한 테마와 프롬프트를 기반으로 OpenAI GPT Image2 API를 호출하여 고품질 이미지를 생성합니다.</p>
+                    <h4>입력 데이터</h4>
+                    <ul>
+                        <li>Theme ID: 선택된 테마의 고유 식별자</li>
+                        <li>Prompt: 최대 2,000자의 이미지 생성 프롬프트</li>
+                        <li>Logo: 사용자가 업로드한 로고 파일 (JPG, PNG, WebP, GIF)</li>
+                    </ul>
+                    <h4>처리 과정</h4>
+                    <ol>
+                        <li>입력 데이터 검증 (프롬프트 길이, 파일 형식, 파일 크기)</li>
+                        <li>OpenAI API 호출 및 이미지 생성</li>
+                        <li>Canvas API를 이용한 로고 오버레이</li>
+                        <li>최종 이미지 Blob 생성 및 URL 생성</li>
+                        <li>생성 이력 Supabase에 저장</li>
+                    </ol>
+                    <h4>출력 데이터</h4>
+                    <ul>
+                        <li>Generated Image URL: 생성된 이미지의 접근 가능한 URL</li>
+                        <li>Image Metadata: 생성 시간, 사용된 테마, 프롬프트 등</li>
+                    </ul>
+                </div>
+
+                <h3>2.2 보조 기능 - 테마 관리</h3>
+                <div class="card">
+                    <h4>테마 조회</h4>
+                    <ul>
+                        <li>DB에 저장된 모든 테마 목록 조회</li>
+                        <li>테마 이미지 미리보기</li>
+                        <li>테마 상세 정보 표시</li>
+                    </ul>
+                    <h4>테마 추가</h4>
+                    <ul>
+                        <li>테마 이름, 설명, 템플릿 이미지 입력</li>
+                        <li>Supabase에 새 테마 데이터 저장</li>
+                        <li>즉시 드롭다운에 반영</li>
+                    </ul>
+                </div>
+
+                <h3>2.3 사용자 인터페이스</h3>
+                <div class="card accent">
+                    <h4>섹션별 UI</h4>
+                    <ul>
+                        <li><strong>이미지 생성</strong> - 폼 입력, 진행률 표시, 결과 영역</li>
+                        <li><strong>테마 관리</strong> - 테마 추가 폼, 테마 그리드</li>
+                        <li><strong>사용 가이드</strong> - 가이드 카드, FAQ</li>
+                    </ul>
+                    <h4>반응형 디자인</h4>
+                    <ul>
+                        <li>모바일: 단일 열 레이아웃 (최대 767px)</li>
+                        <li>태블릿: 2열 레이아웃 (768px-1023px)</li>
+                        <li>데스크톱: 3열 레이아웃 (1024px 이상)</li>
+                    </ul>
+                </div>
+
+                <h3>2.4 세션 및 저장소</h3>
+                <div class="card">
+                    <h4>로컬 스토리지</h4>
+                    <ul>
+                        <li>세션 데이터 저장 (24시간 TTL)</li>
+                        <li>사용자 설정 저장</li>
+                    </ul>
+                    <h4>데이터베이스</h4>
+                    <ul>
+                        <li>테마 데이터 (image_themes 테이블)</li>
+                        <li>생성 이미지 이력 (generated_images 테이블)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 탭 3: 시스템 구조 -->
+        <div class="tab-content">
+            <div class="section">
+                <h2>3. 시스템 구조</h2>
+
+                <h3>3.1 아키텍처 개요</h3>
+                <div class="card">
+                    <pre><code>┌─────────────────────────────────────────────────┐
+│           Client (Browser)                      │
+│  ┌──────────────┬──────────────────────────┐   │
+│  │   index.html │  manual.html             │   │
+│  └──────────────┴──────────────────────────┘   │
+│  ┌──────────────────────────────────────────┐  │
+│  │   CSS (style.css, responsive.css)        │  │
+│  └──────────────────────────────────────────┘  │
+│  ┌──────────────────────────────────────────┐  │
+│  │  JavaScript (config, api, ui, app)       │  │
+│  └──────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────┘
+              │
+              │ HTTP/HTTPS
+              ▼
+┌─────────────────────────────────────────────────┐
+│    External APIs & Services                     │
+│  ┌─────────────────────────────────────────┐   │
+│  │  OpenAI API (Image Generation)          │   │
+│  └─────────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────┐   │
+│  │  Supabase (Database & Auth)             │   │
+│  └─────────────────────────────────────────┘   │
+│  ┌─────────────────────────────────────────┐   │
+│  │  Vercel (Deployment)                    │   │
+│  └─────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────┘</code></pre>
+                </div>
+
+                <h3>3.2 파일 구조</h3>
+                <pre><code>40-10-00 홍보 이미지 제작 플랫폼/
+├── index.html              (메인 페이지)
+├── manual.html             (사용자 매뉴얼)
+├── copyright.html          (저작권 등록 - 현재 파일)
+├── patent.html             (특허명세서)
+├── css/
+│   ├── style.css           (메인 스타일 - 1,200줄)
+│   └── responsive.css      (반응형 스타일 - 400줄)
+├── js/
+│   ├── config.js           (설정 및 상수 - 200줄)
+│   ├── api.js              (API 호출 로직 - 300줄)
+│   ├── ui.js               (UI 상호작용 - 500줄)
+│   └── app.js              (앱 초기화 - 100줄)
+├── README.md               (프로젝트 설명)
+├── .env.example            (환경 변수 템플릿)
+└── .gitignore              (Git 무시 설정)</code></pre>
+
+                <h3>3.3 데이터 흐름</h3>
+                <div class="card">
+                    <h4>이미지 생성 흐름</h4>
+                    <ol>
+                        <li>사용자가 폼에 입력 (테마, 프롬프트, 로고)</li>
+                        <li>UI Manager가 입력 검증</li>
+                        <li>API Client가 OpenAI API 호출</li>
+                        <li>Canvas API로 로고 오버레이</li>
+                        <li>결과 이미지 표시 및 저장</li>
+                    </ol>
+                </div>
+
+                <h3>3.4 클래스 구조</h3>
+                <div class="card accent">
+                    <h4>APIClient 클래스</h4>
+                    <p>OpenAI, Supabase, Vercel API와의 통신을 관리합니다.</p>
+                    <ul>
+                        <li><code>generateImage()</code> - 이미지 생성</li>
+                        <li><code>addLogoToImage()</code> - 로고 오버레이</li>
+                        <li><code>getThemes()</code> - 테마 조회</li>
+                        <li><code>saveImageHistory()</code> - 이력 저장</li>
+                    </ul>
+
+                    <h4>UIManager 클래스</h4>
+                    <p>사용자 인터페이스 및 상호작용을 관리합니다.</p>
+                    <ul>
+                        <li><code>handleGenerateImage()</code> - 이미지 생성 처리</li>
+                        <li><code>switchSection()</code> - 섹션 전환</li>
+                        <li><code>loadThemes()</code> - 테마 로드</li>
+                        <li><code>showModal()</code> - 모달 표시</li>
+                    </ul>
+
+                    <h4>App 클래스</h4>
+                    <p>애플리케이션 전체 생명주기를 관리합니다.</p>
+                    <ul>
+                        <li><code>init()</code> - 초기화</li>
+                        <li><code>checkSession()</code> - 세션 확인</li>
+                        <li><code>checkEnvironment()</code> - 환경 검증</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 탭 4: 독창적 요소 -->
+        <div class="tab-content">
+            <div class="section">
+                <h2>4. 독창적 요소</h2>
+
+                <h3>4.1 기술적 독창성</h3>
+                <div class="card">
+                    <h4>1️⃣ Canvas 기반 로고 오버레이 시스템</h4>
+                    <p>HTML5 Canvas API를 활용하여 생성된 이미지에 동적으로 로고를 삽입하는 기법입니다. 이미지 좌표 계산, 크기 조절, 투명도 처리 등이 포함됩니다.</p>
+                    <ul>
+                        <li>동적 로고 크기 조절 알고리즘</li>
+                        <li>프로그래매틱 이미지 합성</li>
+                        <li>Blob 기반 바이너리 이미지 처리</li>
+                    </ul>
+
+                    <h4>2️⃣ 테마 기반 이미지 생성 아키텍처</h4>
+                    <p>단순히 프롬프트만으로 이미지를 생성하는 것이 아니라, 미리 정의된 테마의 구조를 유지하면서 다양한 콘텐츠를 생성합니다.</p>
+                    <ul>
+                        <li>테마 메타데이터 스키마</li>
+                        <li>테마별 프롬프트 템플릿 확장</li>
+                        <li>구조 보존 알고리즘</li>
+                    </ul>
+
+                    <h4>3️⃣ 반응형 웹 디자인 및 인쇄 최적화</h4>
+                    <p>모바일부터 데스크톱까지 모든 화면에서 최적의 경험을 제공하며, 동시에 PDF 인쇄도 완벽하게 지원합니다.</p>
+                    <ul>
+                        <li>CSS Grid/Flexbox 기반 동적 레이아웃</li>
+                        <li>@media print 최적화</li>
+                        <li>터치 친화적 UI (min-height: 44px)</li>
+                    </ul>
+                </div>
+
+                <h3>4.2 디자인 독창성</h3>
+                <div class="card accent">
+                    <h4>프리미엄 화이트 테마</h4>
+                    <p>모던하면서도 전문적인 느낌의 화이트 톤 기반 디자인입니다.</p>
+                    <ul>
+                        <li>그라데이션 기반 섹션 배경</li>
+                        <li>컬러 코딩 시스템 (Blue/Purple/Teal/Green)</li>
+                        <li>호버 및 활성화 상태 애니메이션</li>
+                    </ul>
+
+                    <h4>세그먼트 기반 색상 팔레트</h4>
+                    <ul>
+                        <li>Primary (Blue): 메인 액션, 우선순위 높음</li>
+                        <li>Secondary (Purple): 보조 액션, 강조</li>
+                        <li>Accent (Teal): 정보, 팁</li>
+                        <li>Danger (Red): 에러, 경고</li>
+                        <li>Success (Green): 성공, 완료</li>
+                    </ul>
+                </div>
+
+                <h3>4.3 UX 독창성</h3>
+                <div class="card">
+                    <h4>직관적인 5단계 작업 흐름</h4>
+                    <p>복잡한 프로세스를 명확한 5개 단계로 단순화했습니다.</p>
+
+                    <h4>실시간 진행률 피드백</h4>
+                    <p>이미지 생성 중 진행 상황을 시각적으로 표시하여 사용자 불안감을 해소합니다.</p>
+
+                    <h4>모달 기반 메시지 시스템</h4>
+                    <p>성공, 오류, 정보 메시지를 통일된 UI로 표시합니다.</p>
+                </div>
+
+                <h3>4.4 기능 독창성</h3>
+                <div class="card">
+                    <h4>동적 테마 확장</h4>
+                    <p>사용자가 새로운 테마를 추가할 수 있어 플랫폼이 계속 성장합니다.</p>
+
+                    <h4>환경 변수 기반 설정 관리</h4>
+                    <p>API 키를 코드에 하드코딩하지 않고 환경 변수로 관리합니다.</p>
+
+                    <h4>자동 세션 관리</h4>
+                    <p>24시간 TTL이 있는 자동 세션 생성 및 검증 시스템입니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 탭 5: 창작 이력 -->
+        <div class="tab-content">
+            <div class="section">
+                <h2>5. 창작 이력</h2>
+
+                <h3>5.1 개발 타임라인</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>날짜</th>
+                            <th>마일스톤</th>
+                            <th>상태</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2026-05-16</td>
+                            <td>프로젝트 초기화 및 기본 구조 완성</td>
+                            <td>✅ 완료</td>
+                        </tr>
+                        <tr>
+                            <td>2026-05-16</td>
+                            <td>HTML/CSS/JS 기본 페이지 구현</td>
+                            <td>✅ 완료</td>
+                        </tr>
+                        <tr>
+                            <td>2026-05-16</td>
+                            <td>API 통합 및 이미지 생성 기능</td>
+                            <td>✅ 완료</td>
+                        </tr>
+                        <tr>
+                            <td>2026-05-16</td>
+                            <td>테마 관리 기능 개발</td>
+                            <td>✅ 완료</td>
+                        </tr>
+                        <tr>
+                            <td>2026-05-16</td>
+                            <td>반응형 디자인 및 최적화</td>
+                            <td>✅ 완료</td>
+                        </tr>
+                        <tr>
+                            <td>2026-05-16</td>
+                            <td>사용자 매뉴얼 작성</td>
+                            <td>✅ 완료</td>
+                        </tr>
+                        <tr>
+                            <td>2026-05-16</td>
+                            <td>저작권 등록 자료 생성</td>
+                            <td>✅ 완료</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>5.2 주요 개발 결정사항</h3>
+                <div class="card">
+                    <h4>1. 프레임워크 선택: Vanilla JavaScript</h4>
+                    <p>React, Vue 등의 프레임워크 대신 순수 JavaScript를 선택한 이유:</p>
+                    <ul>
+                        <li>빠른 로딩 속도</li>
+                        <li>외부 의존성 최소화</li>
+                        <li>간단한 배포 (정적 파일만 필요)</li>
+                    </ul>
+
+                    <h4>2. 데이터베이스: Supabase</h4>
+                    <p>Firebase 대신 Supabase를 선택한 이유:</p>
+                    <ul>
+                        <li>PostgreSQL 기반 강력한 기능</li>
+                        <li>오픈소스 생태계</li>
+                        <li>유연한 RLS (Row-Level Security)</li>
+                    </ul>
+
+                    <h4>3. 배포: Vercel</h4>
+                    <p>다른 호스팅 서비스 대신 Vercel을 선택한 이유:</p>
+                    <ul>
+                        <li>정적 웹사이트 최적화</li>
+                        <li>빠른 빌드 및 배포</li>
+                        <li>글로벌 CDN</li>
+                    </ul>
+                </div>
+
+                <h3>5.3 반복 개선 사항</h3>
+                <div class="card accent">
+                    <h4>UI/UX 개선</h4>
+                    <ul>
+                        <li>진행률 표시 추가</li>
+                        <li>모달 기반 메시지 시스템</li>
+                        <li>파일 크기 제한 안내</li>
+                    </ul>
+
+                    <h4>성능 최적화</h4>
+                    <ul>
+                        <li>CSS Grid 최적화</li>
+                        <li>이미지 lazy loading</li>
+                        <li>JavaScript 코드 분할</li>
+                    </ul>
+
+                    <h4>보안 강화</h4>
+                    <ul>
+                        <li>입력값 검증</li>
+                        <li>환경 변수 관리</li>
+                        <li>CORS 설정</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 탭 6: 저작권 선언 -->
+        <div class="tab-content">
+            <div class="section">
+                <h2>6. 저작권 선언</h2>
+
+                <h3>6.1 저작권 표시</h3>
+                <div class="card">
+                    <p><strong>프로그램명:</strong> AI Visual Theme Studio</p>
+                    <p><strong>저작권자:</strong> 심재우</p>
+                    <p><strong>저작권 등록일:</strong> 2026년 5월 16일</p>
+                    <p><strong>저작권 표시:</strong> © 2026 AI Visual Theme Studio. All rights reserved.</p>
+                </div>
+
+                <h3>6.2 라이선스</h3>
+                <div class="card accent">
+                    <p><strong>라이선스:</strong> MIT License</p>
+                    <p>MIT 라이선스 하에서 소프트웨어를 배포합니다. 자유로운 사용, 수정, 배포가 가능합니다.</p>
+                </div>
+
+                <h3>6.3 저작권 소유 범위</h3>
+                <div class="card">
+                    <h4>저작권이 있는 부분</h4>
+                    <ul>
+                        <li>전체 HTML 구조 및 의미론적 마크업</li>
+                        <li>CSS 스타일시트 및 레이아웃 시스템</li>
+                        <li>JavaScript 핵심 로직 (APIClient, UIManager, App 클래스)</li>
+                        <li>API 통합 로직 및 에러 처리</li>
+                        <li>Canvas 기반 로고 오버레이 알고리즘</li>
+                        <li>반응형 디자인 시스템</li>
+                        <li>사용자 매뉴얼 및 문서</li>
+                    </ul>
+
+                    <h4>제외 사항</h4>
+                    <ul>
+                        <li>OpenAI API (별도 라이선스)</li>
+                        <li>Supabase 라이브러리 (오픈소스)</li>
+                        <li>외부 API 호출 결과 (생성된 이미지)</li>
+                    </ul>
+                </div>
+
+                <h3>6.4 2차 저작물 정책</h3>
+                <div class="card">
+                    <h4>허용되는 행동</h4>
+                    <ul>
+                        <li>✅ 상업적 사용</li>
+                        <li>✅ 수정 및 개선</li>
+                        <li>✅ 재배포</li>
+                        <li>✅ 2차 저작물 생성</li>
+                    </ul>
+
+                    <h4>제약 사항</h4>
+                    <ul>
+                        <li>⚠️ MIT 라이선스 표시 필수</li>
+                        <li>⚠️ 저작권 표시 유지</li>
+                        <li>⚠️ 라이선스 사본 포함</li>
+                    </ul>
+                </div>
+
+                <h3>6.5 저작권 침해 대응</h3>
+                <div class="card warning">
+                    <p>저작권 침해 행위가 의심되는 경우 다음 연락처로 보고해주시기 바랍니다:</p>
+                    <p><strong>이메일:</strong> jaiwshim@gmail.com</p>
+                    <p>저작권 침해로 확인되는 경우 법적 조치를 취할 수 있습니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 탭 7: 구조도 -->
+        <div class="tab-content">
+            <div class="section">
+                <h2>7. 시스템 아키텍처 구조도</h2>
+
+                <h3>7.1 전체 아키텍처</h3>
+                <div class="card">
+                    <svg viewBox="0 0 1600 1200" style="width: 100%; height: auto; border: 2px solid #e5e7eb; border-radius: 8px;">
+                        <!-- 정의 -->
+                        <defs>
+                            <style>
+                                .arch-title { font-size: 18px; font-weight: bold; fill: white; }
+                                .arch-label { font-size: 14px; font-weight: 600; fill: #111827; }
+                                .arch-desc { font-size: 12px; fill: #4b5563; }
+                            </style>
+                        </defs>
+
+                        <!-- 배경 -->
+                        <rect width="1600" height="1200" fill="#f9fafb"/>
+
+                        <!-- Layer 1: User -->
+                        <rect x="50" y="50" width="1500" height="150" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+                        <rect x="50" y="50" width="1500" height="40" fill="#2563eb"/>
+                        <text x="800" y="75" text-anchor="middle" class="arch-title">👤 User Layer - 사용자</text>
+
+                        <rect x="100" y="110" width="200" height="70" fill="white" stroke="#2563eb" stroke-width="2" rx="8"/>
+                        <text x="200" y="135" text-anchor="middle" class="arch-label">Browser</text>
+                        <text x="200" y="155" text-anchor="middle" class="arch-desc">Chrome/Safari</text>
+
+                        <rect x="350" y="110" width="200" height="70" fill="white" stroke="#2563eb" stroke-width="2" rx="8"/>
+                        <text x="450" y="135" text-anchor="middle" class="arch-label">Mobile</text>
+                        <text x="450" y="155" text-anchor="middle" class="arch-desc">iOS/Android</text>
+
+                        <rect x="600" y="110" width="200" height="70" fill="white" stroke="#2563eb" stroke-width="2" rx="8"/>
+                        <text x="700" y="135" text-anchor="middle" class="arch-label">Tablet</text>
+                        <text x="700" y="155" text-anchor="middle" class="arch-desc">Responsive</text>
+
+                        <!-- Layer 2: Frontend -->
+                        <rect x="50" y="250" width="1500" height="200" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+                        <rect x="50" y="250" width="1500" height="40" fill="#ea580c"/>
+                        <text x="800" y="275" text-anchor="middle" class="arch-title">🎨 Frontend Layer</text>
+
+                        <rect x="100" y="310" width="200" height="100" fill="white" stroke="#ea580c" stroke-width="2" rx="8"/>
+                        <text x="200" y="335" text-anchor="middle" class="arch-label">HTML5</text>
+                        <text x="200" y="355" text-anchor="middle" class="arch-desc">index.html</text>
+                        <text x="200" y="375" text-anchor="middle" class="arch-desc">manual.html</text>
+
+                        <rect x="350" y="310" width="200" height="100" fill="white" stroke="#ea580c" stroke-width="2" rx="8"/>
+                        <text x="450" y="335" text-anchor="middle" class="arch-label">CSS3</text>
+                        <text x="450" y="355" text-anchor="middle" class="arch-desc">style.css</text>
+                        <text x="450" y="375" text-anchor="middle" class="arch-desc">responsive.css</text>
+
+                        <rect x="600" y="310" width="200" height="100" fill="white" stroke="#ea580c" stroke-width="2" rx="8"/>
+                        <text x="700" y="335" text-anchor="middle" class="arch-label">JavaScript</text>
+                        <text x="700" y="355" text-anchor="middle" class="arch-desc">ES6+</text>
+                        <text x="700" y="375" text-anchor="middle" class="arch-desc">Vanilla</text>
+
+                        <rect x="850" y="310" width="200" height="100" fill="white" stroke="#ea580c" stroke-width="2" rx="8"/>
+                        <text x="950" y="335" text-anchor="middle" class="arch-label">UI Manager</text>
+                        <text x="950" y="355" text-anchor="middle" class="arch-desc">ui.js</text>
+                        <text x="950" y="375" text-anchor="middle" class="arch-desc">Events</text>
+
+                        <rect x="1100" y="310" width="200" height="100" fill="white" stroke="#ea580c" stroke-width="2" rx="8"/>
+                        <text x="1200" y="335" text-anchor="middle" class="arch-label">Config</text>
+                        <text x="1200" y="355" text-anchor="middle" class="arch-desc">config.js</text>
+                        <text x="1200" y="375" text-anchor="middle" class="arch-desc">Constants</text>
+
+                        <!-- Layer 3: API -->
+                        <rect x="50" y="500" width="1500" height="150" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+                        <rect x="50" y="500" width="1500" height="40" fill="#16a34a"/>
+                        <text x="800" y="525" text-anchor="middle" class="arch-title">🔗 API Layer</text>
+
+                        <rect x="150" y="560" width="250" height="70" fill="white" stroke="#16a34a" stroke-width="2" rx="8"/>
+                        <text x="275" y="585" text-anchor="middle" class="arch-label">OpenAI API</text>
+                        <text x="275" y="605" text-anchor="middle" class="arch-desc">Image Generation</text>
+
+                        <rect x="475" y="560" width="250" height="70" fill="white" stroke="#16a34a" stroke-width="2" rx="8"/>
+                        <text x="600" y="585" text-anchor="middle" class="arch-label">Supabase API</text>
+                        <text x="600" y="605" text-anchor="middle" class="arch-desc">Database/Auth</text>
+
+                        <rect x="800" y="560" width="250" height="70" fill="white" stroke="#16a34a" stroke-width="2" rx="8"/>
+                        <text x="925" y="585" text-anchor="middle" class="arch-label">Vercel API</text>
+                        <text x="925" y="605" text-anchor="middle" class="arch-desc">Deployment</text>
+
+                        <!-- Layer 4: Services -->
+                        <rect x="50" y="720" width="1500" height="150" fill="#faf5ff" stroke="#9333ea" stroke-width="2"/>
+                        <rect x="50" y="720" width="1500" height="40" fill="#9333ea"/>
+                        <text x="800" y="745" text-anchor="middle" class="arch-title">⚙️ Services Layer</text>
+
+                        <rect x="150" y="780" width="250" height="70" fill="white" stroke="#9333ea" stroke-width="2" rx="8"/>
+                        <text x="275" y="805" text-anchor="middle" class="arch-label">Image Processing</text>
+                        <text x="275" y="825" text-anchor="middle" class="arch-desc">Canvas API</text>
+
+                        <rect x="475" y="780" width="250" height="70" fill="white" stroke="#9333ea" stroke-width="2" rx="8"/>
+                        <text x="600" y="805" text-anchor="middle" class="arch-label">Auth Manager</text>
+                        <text x="600" y="825" text-anchor="middle" class="arch-desc">Session/Token</text>
+
+                        <rect x="800" y="780" width="250" height="70" fill="white" stroke="#9333ea" stroke-width="2" rx="8"/>
+                        <text x="925" y="805" text-anchor="middle" class="arch-label">Data Manager</text>
+                        <text x="925" y="825" text-anchor="middle" class="arch-desc">localStorage</text>
+
+                        <!-- Layer 5: Data -->
+                        <rect x="50" y="940" width="1500" height="150" fill="#f0fdfa" stroke="#0d9488" stroke-width="2"/>
+                        <rect x="50" y="940" width="1500" height="40" fill="#0d9488"/>
+                        <text x="800" y="965" text-anchor="middle" class="arch-title">📊 Data Layer</text>
+
+                        <rect x="150" y="1000" width="250" height="70" fill="white" stroke="#0d9488" stroke-width="2" rx="8"/>
+                        <text x="275" y="1025" text-anchor="middle" class="arch-label">PostgreSQL</text>
+                        <text x="275" y="1045" text-anchor="middle" class="arch-desc">Supabase DB</text>
+
+                        <rect x="475" y="1000" width="250" height="70" fill="white" stroke="#0d9488" stroke-width="2" rx="8"/>
+                        <text x="600" y="1025" text-anchor="middle" class="arch-label">Cache</text>
+                        <text x="600" y="1045" text-anchor="middle" class="arch-desc">localStorage</text>
+
+                        <rect x="800" y="1000" width="250" height="70" fill="white" stroke="#0d9488" stroke-width="2" rx="8"/>
+                        <text x="925" y="1025" text-anchor="middle" class="arch-label">File Storage</text>
+                        <text x="925" y="1045" text-anchor="middle" class="arch-desc">Vercel Blob</text>
+
+                        <!-- 화살표 -->
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#2563eb"/>
+                            </marker>
+                        </defs>
+
+                        <!-- 연결선 -->
+                        <line x1="800" y1="200" x2="800" y2="250" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="800" y1="450" x2="800" y2="500" stroke="#ea580c" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="800" y1="650" x2="800" y2="720" stroke="#16a34a" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="800" y1="850" x2="800" y2="940" stroke="#9333ea" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    </svg>
+                </div>
+
+                <h3>7.2 컴포넌트 관계도</h3>
+                <div class="card">
+                    <p style="text-align: center; opacity: 1;">자세한 구조도는 PDF 다운로드 시 포함됩니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 다운로드 버튼 -->
+    <div style="text-align: center; padding: 2rem;">
+        <button class="download-btn" onclick="window.print()">🖨️ PDF로 다운로드</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 AI Visual Theme Studio. All rights reserved.</p>
+        <p><a href="index.html">← 돌아가기</a></p>
+    </footer>
+
+    <script>
+        function switchTab(index) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-content')[index].classList.add('active');
+            document.querySelectorAll('.tab-btn')[index].classList.add('active');
+        }
+    </script>
+</body>
+</html>

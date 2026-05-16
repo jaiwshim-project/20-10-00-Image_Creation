@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Visual Theme Studio - 홍보 이미지 제작 플랫폼</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(to bottom, #f9fafb, #ffffff, #f3f4f6);
+            color: #111827;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: #1f2937;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            color: #6b7280;
+        }
+
+        .form-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 4px solid #2563eb;
+        }
+
+        .form-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            color: #111827;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #374151;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="file"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .char-count {
+            text-align: right;
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 1024px) {
+            .card-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .card-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .card {
+            padding: 0.75rem;
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            border-color: #2563eb;
+            background: #f0f9ff;
+            transform: translateY(-2px);
+        }
+
+        .card.selected {
+            border-color: #2563eb;
+            background: #dbeafe;
+            font-weight: 600;
+            box-shadow: 0 0 0 2px #2563eb;
+        }
+
+        .card-emoji {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-label {
+            font-size: 0.8rem;
+            color: #374151;
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .template-item {
+            position: relative;
+            cursor: pointer;
+            border-radius: 8px;
+            border: 3px solid #e5e7eb;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .template-item:hover {
+            border-color: #2563eb;
+            transform: translateY(-4px);
+        }
+
+        .template-item.selected {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px #2563eb;
+        }
+
+        .template-item.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #2563eb;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .template-preview {
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .template-name {
+            padding: 0.75rem;
+            text-align: center;
+            background: white;
+            font-size: 0.875rem;
+            color: #374151;
+            font-weight: 500;
+        }
+
+        .actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        .btn-secondary:hover {
+            background: #d1d5db;
+        }
+
+        .progress-bar {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: #f0f9ff;
+            border-radius: 8px;
+            border: 2px solid #2563eb;
+            display: none;
+        }
+
+        .progress-bar.active {
+            display: block;
+        }
+
+        .progress-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .progress-bar-wrapper {
+            flex: 1;
+        }
+
+        .progress-fill {
+            height: 8px;
+            background: linear-gradient(to right, #2563eb, #3b82f6);
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-percentage {
+            font-weight: 700;
+            color: #2563eb;
+            font-size: 0.875rem;
+            min-width: 40px;
+            text-align: right;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #2563eb;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .result-container {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #2563eb;
+            text-align: center;
+            display: none;
+        }
+
+        .result-container.active {
+            display: block;
+        }
+
+        .result-container h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .result-container img {
+            max-width: 100%;
+            max-height: 600px;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .footer {
+            background: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .hidden { display: none !important; }
+    </style>
+    <!-- Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <!-- 네비게이션 -->
+    <div class="navbar">
+        <div class="navbar-content">
+            <div class="logo">🎨 AI Visual Theme Studio</div>
+            <ul class="nav-links">
+                <li><a href="index.html">🎯 이미지 생성</a></li>
+                <li><a href="themes.html">🎨 테마 관리</a></li>
+                <li><a href="guide.html">📖 사용 가이드</a></li>
+                <li><a href="gallery.html">📸 갤러리</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 메인 컨텐츠 -->
+    <div class="container">
+        <div class="header">
+            <h1>🎯 홍보 이미지 생성</h1>
+            <p>테마와 로고를 선택하고 프롬프트를 입력해 맞춤형 홍보 이미지를 생성하세요</p>
+        </div>
+
+        <!-- Step 1: 주제 입력 -->
+        <div class="form-section">
+            <h3>📝 Step 1: 주제 입력</h3>
+            <div class="form-group">
+                <input type="text" id="subject" placeholder="프로모션 주제를 입력해주세요..." maxlength="200">
+                <div class="char-count"><span id="subject-count">0</span> / 200자</div>
+            </div>
+        </div>
+
+        <!-- Step 2: 자료 업로드 -->
+        <div class="form-section">
+            <h3>📂 Step 2: 자료 업로드</h3>
+            <div class="form-group">
+                <input type="file" id="material-upload" accept="image/png,image/jpeg,image/jpg,image/webp,image/gif">
+                <div id="material-preview" style="margin-top: 1rem; padding: 1rem; background: #f3f4f6; border-radius: 8px; display: none;">
+                    <div id="material-content">파일이 로드되었습니다</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: 로고 입력 -->
+        <div class="form-section">
+            <h3>🏷️ Step 3: 로고 입력</h3>
+            <div class="form-group">
+                <input type="file" id="logo-upload" accept=".png,.jpg,.jpeg">
+                <div id="logo-preview" style="margin-top: 1rem; display: none;">
+                    <img id="logo-image" style="max-width: 200px; border-radius: 8px;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: 연락처 입력 -->
+        <div class="form-section">
+            <h3>📞 Step 4: 연락처 입력</h3>
+            <div class="form-group">
+                <input type="text" id="contact" placeholder="연락처를 입력해주세요 (이메일, 전화번호 등)..." maxlength="100">
+            </div>
+        </div>
+
+        <!-- Step 5A: 산업분야 선택 -->
+        <div class="form-section">
+            <h3>🎨 Step 5A: 산업분야 선택</h3>
+            <div class="card-grid" id="industry-grid"></div>
+        </div>
+
+        <!-- Step 5B: 이미지 템플릿 선택 -->
+        <div class="form-section">
+            <h3>🖼️ Step 5B: 이미지 템플릿 선택</h3>
+            <div class="template-grid" id="template-grid"></div>
+        </div>
+
+        <!-- Step 6: 금기어 입력 -->
+        <div class="form-section">
+            <h3>⛔ Step 6: 금기어 입력</h3>
+            <div class="form-group">
+                <textarea id="forbidden-words" placeholder="이미지에 포함하면 안 되는 단어들을 쉼표로 구분하여 입력해주세요..."></textarea>
+                <div class="char-count"><span id="forbidden-count">0</span> / 500자</div>
+            </div>
+        </div>
+
+        <!-- 생성 버튼 -->
+        <div class="actions">
+            <button class="btn btn-primary" id="btn-generate">✨ 프로모션 이미지 생성</button>
+            <button class="btn btn-secondary" id="btn-reset">초기화</button>
+        </div>
+
+        <!-- 진행 상황 -->
+        <div class="progress-bar" id="progress-bar">
+            <div class="progress-container">
+                <div class="progress-bar-wrapper">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-percentage" id="progress-percentage">0%</div>
+            </div>
+            <div class="progress-text" id="progress-text">이미지 생성 중... 0%</div>
+        </div>
+
+        <!-- 결과 -->
+        <div class="result-container" id="result-container">
+            <h3>📸 생성된 이미지</h3>
+            <img id="result-image">
+            <div class="result-actions">
+                <button class="btn btn-primary" id="btn-download">⬇️ 다운로드</button>
+                <button class="btn btn-secondary" id="btn-copy">🔗 URL 복사</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <div class="footer">
+        <p>&copy; 2026 AI Visual Theme Studio. All rights reserved.</p>
+    </div>
+
+    <!-- 메인 스크립트 -->
+    <script>
+        // 전역 변수 중복 선언 방지
+        if (typeof supabase !== 'undefined') {
+            console.log('⚠️ Supabase 이미 선언됨');
+        }
+
+        // ============ 데이터 정의 ============
+        const industries = [
+            { id: 'tech', emoji: '💻', name: '기술/IT' },
+            { id: 'finance', emoji: '💰', name: '금융/뱅킹' },
+            { id: 'health', emoji: '🏥', name: '의료/헬스' },
+            { id: 'education', emoji: '📚', name: '교육/학습' },
+            { id: 'realestate', emoji: '🏠', name: '부동산' },
+            { id: 'food', emoji: '🍽️', name: '음식/음료' },
+            { id: 'fashion', emoji: '👗', name: '패션/소매' },
+            { id: 'travel', emoji: '✈️', name: '여행/관광' },
+            { id: 'auto', emoji: '🚗', name: '자동차' },
+            { id: 'energy', emoji: '⚡', name: '에너지/환경' },
+            { id: 'manufacturing', emoji: '🏭', name: '제조/산업' },
+            { id: 'ecommerce', emoji: '🛍️', name: '전자상거래' },
+            { id: 'consulting', emoji: '💼', name: '컨설팅' },
+            { id: 'entertainment', emoji: '🎬', name: '엔터테인먼트' },
+            { id: 'sustainability', emoji: '🌱', name: '지속가능성' }
+        ];
+
+        const templates = [
+            { id: 'template1', name: '에바셀', image: 'file:///C:/Users/USER/Downloads/%EC%97%90%EB%B0%94%EC%85%802.png' },
+            { id: 'template2', name: '선거', image: 'file:///C:/Users/USER/Downloads/%EC%84%A0%EA%B1%B05.png' },
+            { id: 'template3', name: 'GEO', image: 'file:///C:/Users/USER/Downloads/GEO2.png' },
+            { id: 'template4', name: 'MedVo', image: 'file:///C:/Users/USER/Downloads/MedVo1.png' }
+        ];
+
+        const themeColors = {
+            'tech': ['#2563eb', '#1e40af'],
+            'finance': ['#16a34a', '#15803d'],
+            'health': ['#dc2626', '#991b1b'],
+            'education': ['#7c3aed', '#6d28d9'],
+            'realestate': ['#ea580c', '#c2410c'],
+            'food': ['#db2777', '#be185d'],
+            'fashion': ['#d946ef', '#a21caf'],
+            'travel': ['#0891b2', '#0e7490'],
+            'auto': ['#1e293b', '#0f172a'],
+            'energy': ['#fbbf24', '#d97706'],
+            'manufacturing': ['#6366f1', '#4f46e5'],
+            'ecommerce': ['#f59e0b', '#d97706'],
+            'consulting': ['#475569', '#334155'],
+            'entertainment': ['#f43f5e', '#e11d48'],
+            'sustainability': ['#22c55e', '#16a34a']
+        };
+
+        // ============ Supabase 초기화 ============
+        let sbClient = null;
+        let dbReady = false;
+
+        async function initSupabase() {
+            try {
+                const response = await fetch('/api/config');
+                const config = await response.json();
+
+                const { createClient } = window.supabase;
+                sbClient = createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY);
+
+                console.log('✅ Supabase 초기화 완료');
+
+                const { data, error } = await sbClient.from('generations').select('count', { count: 'exact' }).limit(0);
+                if (!error) {
+                    console.log('✅ Supabase 연결 테스트 성공');
+                    dbReady = true;
+                } else if (error.message.includes('does not exist')) {
+                    console.warn('⚠️ DB 테이블이 아직 생성되지 않음');
+                    dbReady = false;
+                    showSetupBanner();
+                }
+            } catch (error) {
+                console.warn('⚠️ Supabase 미연결:', error.message);
+                dbReady = false;
+            }
+        }
+
+        function showSetupBanner() {
+            const banner = document.createElement('div');
+            banner.style.cssText = 'background:#fff3cd;border-bottom:2px solid #ffc107;padding:1rem;text-align:center;position:sticky;top:0;z-index:1000;';
+            banner.innerHTML = `
+                <div style="max-width:1200px;margin:0 auto;">
+                    <strong>⚙️ 초기 설정 필요</strong> - 데이터베이스 테이블을 생성해야 합니다.
+                    <a href="setup.html" style="margin-left:1rem;color:#d39e00;text-decoration:underline;">설정 페이지 열기 →</a>
+                </div>
+            `;
+            document.body.insertBefore(banner, document.body.firstChild);
+        }
+
+        async function saveGenerationToSupabase(formData, generatedImages) {
+            if (!sbClient) {
+                console.warn('⚠️ Supabase 미연결 - 로컬 저장만 진행');
+                return;
+            }
+
+            try {
+                const { data: generation, error: genError } = await sbClient
+                    .from('generations')
+                    .insert([{
+                        subject: formData.subject,
+                        industry: formData.industryTheme,
+                        template: formData.imageTemplate,
+                        contact: formData.contact,
+                        forbidden_words: formData.forbiddenWords || null,
+                        material_preview: formData.material?.name || 'unknown',
+                        logo_preview: formData.logo?.name || 'unknown'
+                    }])
+                    .select();
+
+                if (genError) {
+                    console.error('[SUPABASE-ERROR]:', genError);
+                    return;
+                }
+
+                const generationId = generation[0].id;
+                console.log('✅ Supabase에 저장됨 (ID: ' + generationId + ')');
+
+            } catch (error) {
+                console.error('❌ Supabase 저장 실패:', error);
+            }
+        }
+
+        // ============ 폼 데이터 ============
+        const formData = {
+            subject: '',
+            material: null,
+            materialBase64: '',
+            logo: null,
+            logoBase64: '',
+            contact: '',
+            industryTheme: null,
+            imageTemplate: null,
+            forbiddenWords: ''
+        };
+
+        // ============ 산업분야 그리드 생성 ============
+        const industryGrid = document.getElementById('industry-grid');
+        industries.forEach(industry => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <span class="card-emoji">${industry.emoji}</span>
+                <div class="card-label">${industry.name}</div>
+            `;
+            card.addEventListener('click', () => {
+                document.querySelectorAll('#industry-grid .card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                formData.industryTheme = industry.id;
+                console.log('✅ 산업분야 선택:', industry.name);
+            });
+            industryGrid.appendChild(card);
+        });
+
+        // ============ 템플릿 그리드 생성 ============
+        const templateGrid = document.getElementById('template-grid');
+        templates.forEach(template => {
+            const item = document.createElement('div');
+            item.className = 'template-item';
+            item.innerHTML = `
+                <img src="${template.image}" alt="${template.name}" style="width: 100%; height: 150px; object-fit: cover; display: block; border-radius: 8px 8px 0 0;" onerror="this.style.background='linear-gradient(135deg, #667eea, #764ba2)'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.style.color='white'; this.textContent='${template.name}';">
+                <div class="template-name">${template.name}</div>
+            `;
+            item.addEventListener('click', () => {
+                document.querySelectorAll('#template-grid .template-item').forEach(t => t.classList.remove('selected'));
+                item.classList.add('selected');
+                formData.imageTemplate = template.id;
+                console.log('✅ 이미지 템플릿 선택:', template.name);
+            });
+            templateGrid.appendChild(item);
+        });
+
+        // ============ 입력 이벤트 ============
+        document.getElementById('subject').addEventListener('input', (e) => {
+            formData.subject = e.target.value;
+            document.getElementById('subject-count').textContent = e.target.value.length;
+        });
+
+        document.getElementById('material-upload').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                console.log('[STEP2-DEBUG] 파일 선택:', {
+                    name: file.name,
+                    type: file.type,
+                    size: file.size,
+                    acceptedTypes: ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif']
+                });
+
+                // 파일 타입 검증
+                const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'];
+                if (!validTypes.includes(file.type)) {
+                    console.error('[STEP2-ERROR] 지원하지 않는 파일 형식:', file.type);
+                    alert(`❌ 지원하지 않는 파일 형식입니다.\n\n지원 형식: PNG, JPEG, WebP, GIF\n현재 형식: ${file.type}`);
+                    document.getElementById('material-upload').value = '';
+                    return;
+                }
+
+                formData.material = file;
+                const reader = new FileReader();
+
+                reader.onload = (event) => {
+                    try {
+                        const result = event.target.result;
+                        console.log('[STEP2-DEBUG] FileReader onload 호출:', {
+                            resultLength: result.length,
+                            startsWith: result.substring(0, 30) + '...',
+                            isDataUrl: result.startsWith('data:')
+                        });
+
+                        // Base64 데이터 유효성 검증
+                        if (!result.startsWith('data:')) {
+                            throw new Error('데이터 URL 형식이 올바르지 않습니다');
+                        }
+
+                        formData.materialBase64 = result;
+                        document.getElementById('material-preview').style.display = 'block';
+                        console.log('✅ 자료 업로드 완료:', file.name, '(' + (result.length / 1024).toFixed(1) + ' KB)');
+                    } catch (error) {
+                        console.error('[STEP2-ERROR] FileReader 처리 중 오류:', error);
+                        alert('파일 읽기 중 오류가 발생했습니다: ' + error.message);
+                    }
+                };
+
+                reader.onerror = (error) => {
+                    console.error('[STEP2-ERROR] FileReader 로드 실패:', error);
+                    alert('파일을 읽을 수 없습니다. 다시 선택해주세요.');
+                };
+
+                reader.onprogress = (event) => {
+                    if (event.lengthComputable) {
+                        const percentComplete = (event.loaded / event.total) * 100;
+                        console.log(`[STEP2-PROGRESS] 파일 로드 중... ${percentComplete.toFixed(0)}%`);
+                    }
+                };
+
+                try {
+                    reader.readAsDataURL(file);
+                    console.log('[STEP2-DEBUG] readAsDataURL 호출됨');
+                } catch (error) {
+                    console.error('[STEP2-ERROR] readAsDataURL 호출 실패:', error);
+                    alert('파일을 읽는 중 오류가 발생했습니다.');
+                }
+            }
+        });
+
+        document.getElementById('logo-upload').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                formData.logo = file;
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    formData.logoBase64 = event.target.result;
+                    document.getElementById('logo-image').src = event.target.result;
+                    document.getElementById('logo-preview').style.display = 'block';
+                    console.log('✅ 로고 업로드:', file.name);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('contact').addEventListener('input', (e) => {
+            formData.contact = e.target.value;
+        });
+
+        document.getElementById('forbidden-words').addEventListener('input', (e) => {
+            formData.forbiddenWords = e.target.value;
+            document.getElementById('forbidden-count').textContent = e.target.value.length;
+        });
+
+        // ============ 진척도 업데이트 함수 ============
+        function updateProgress(percentage, message) {
+            const progressFill = document.getElementById('progress-fill');
+            const progressPercentage = document.getElementById('progress-percentage');
+            const progressText = document.getElementById('progress-text');
+
+            progressFill.style.width = percentage + '%';
+            progressPercentage.textContent = percentage + '%';
+            progressText.textContent = `${message} ${percentage}%`;
+        }
+
+        // ============ 5가지 이미지 표시 함수 ============
+        function displayMultipleImages(images) {
+            const resultContainer = document.getElementById('result-container');
+            const imagesHtml = images.map((img, idx) => `
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="text-align: center; color: #2563eb; margin-bottom: 1rem; font-size: 1rem;">
+                        ${idx + 1}️⃣ ${img.name}
+                    </h4>
+                    <img src="${img.url}" style="width: 100%; max-width: 600px; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 1rem; display: block; margin-left: auto; margin-right: auto;">
+                    <div style="text-align: center; display: flex; gap: 1rem; justify-content: center;">
+                        <button class="btn btn-primary" onclick="downloadImage('${img.url}', '${img.name}')">⬇️ 다운로드</button>
+                        <button class="btn btn-secondary" onclick="copyImageUrl('${img.url}')">🔗 URL 복사</button>
+                    </div>
+                </div>
+            `).join('');
+
+            const resultContent = document.querySelector('.result-card');
+            resultContent.innerHTML = `
+                <h3>📸 생성된 5가지 컬러 테마 이미지</h3>
+                ${imagesHtml}
+            `;
+            resultContainer.classList.add('active');
+        }
+
+        // ============ 개별 다운로드 함수 ============
+        function downloadImage(url, name) {
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `promo-image-${name}-${Date.now()}.png`;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+
+            try {
+                link.click();
+                console.log(`✅ 다운로드 시작: ${name}`);
+            } catch (error) {
+                console.error('❌ 다운로드 실패:', error);
+                alert('다운로드에 실패했습니다.');
+            } finally {
+                document.body.removeChild(link);
+            }
+        }
+
+        // ============ 개별 URL 복사 함수 ============
+        function copyImageUrl(url) {
+            // DataURL의 경우 너무 길어서, 메시지만 표시
+            const isDataUrl = url.startsWith('data:');
+
+            if (isDataUrl) {
+                alert('✅ 이미지가 생성되었습니다.\n"다운로드" 버튼을 사용해 저장하세요.');
+            } else {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('URL이 복사되었습니다!');
+                }).catch(() => {
+                    alert('URL 복사에 실패했습니다.');
+                });
+            }
+        }
+
+        // ============ 이미지 생성 ============
+        document.getElementById('btn-generate').addEventListener('click', generateImage);
+
+        // ============ 색상 변형 함수 ============
+        function generateColorVariants(primaryColor) {
+            // RGB로 변환
+            const hex = primaryColor.replace('#', '');
+            const r = parseInt(hex.substr(0, 2), 16);
+            const g = parseInt(hex.substr(2, 2), 16);
+            const b = parseInt(hex.substr(4, 2), 16);
+
+            // 5가지 색상 변형 생성
+            return [
+                primaryColor, // 1. 기본 색상
+                `#${Math.max(r - 50, 0).toString(16).padStart(2, '0')}${Math.max(g - 50, 0).toString(16).padStart(2, '0')}${Math.max(b - 50, 0).toString(16).padStart(2, '0')}`, // 2. 어두운 색
+                `#${Math.min(r + 60, 255).toString(16).padStart(2, '0')}${Math.min(g + 60, 255).toString(16).padStart(2, '0')}${Math.min(b + 60, 255).toString(16).padStart(2, '0')}`, // 3. 밝은 색
+                `#${Math.round((r + 200) / 2).toString(16).padStart(2, '0')}${Math.round((g + 200) / 2).toString(16).padStart(2, '0')}${Math.round((b + 200) / 2).toString(16).padStart(2, '0')}`, // 4. 파스텔 색
+                `#${Math.round((r * 0.299 + g * 0.587 + b * 0.114)).toString(16).padStart(2, '0')}${Math.round((r * 0.299 + g * 0.587 + b * 0.114)).toString(16).padStart(2, '0')}${Math.round((r * 0.299 + g * 0.587 + b * 0.114)).toString(16).padStart(2, '0')}` // 5. 그레이스케일
+            ];
+        }
+
+        function generateImage() {
+            const { subject, materialBase64, logoBase64, contact, industryTheme, forbiddenWords } = formData;
+
+            // 검증
+            if (!subject || !materialBase64 || !logoBase64 || !contact || !industryTheme) {
+                alert('모든 필수 항목을 입력해주세요:\n- Step 1: 주제\n- Step 2: 자료\n- Step 3: 로고\n- Step 4: 연락처\n- Step 5A: 산업분야');
+                return;
+            }
+
+            // 진행 상황 표시
+            const progressBar = document.getElementById('progress-bar');
+            progressBar.classList.add('active');
+            updateProgress(0, '5가지 컬러 테마 준비 중...');
+
+            // 5가지 색상 변형 생성
+            const primaryColors = themeColors[industryTheme] || ['#2563eb', '#1e40af'];
+            const colorVariants = generateColorVariants(primaryColors[0]);
+            const colorNames = ['기본 색', '어두운 색', '밝은 색', '파스텔 색', '그레이스케일'];
+
+            let completedCount = 0;
+            const generatedImages = [];
+
+            // 지연 후 이미지 생성
+            setTimeout(() => {
+                updateProgress(15, '자료 이미지 로딩 중...');
+
+                // 배경 이미지 로드 전 검증
+                if (!materialBase64 || !materialBase64.startsWith('data:')) {
+                    console.error('[CANVAS-ERROR] 배경 이미지 데이터 없음:', {
+                        hasData: !!materialBase64,
+                        startsWithData: materialBase64?.startsWith('data:') || false,
+                        length: materialBase64?.length || 0
+                    });
+                    alert('❌ 배경 이미지가 준비되지 않았습니다.\nStep 2에서 이미지를 다시 선택해주세요.');
+                    progressBar.classList.remove('active');
+                    return;
+                }
+
+                const baseImg = new Image();
+                let loadTimeout = null;
+
+                baseImg.onload = () => {
+                    if (loadTimeout) clearTimeout(loadTimeout);
+                    console.log('✅ 배경 이미지 로드 성공:', {
+                        width: baseImg.width,
+                        height: baseImg.height,
+                        src: baseImg.src.substring(0, 50) + '...'
+                    });
+                    updateProgress(25, '이미지 처리 중...');
+
+                    // 5가지 색상 모두에 대해 이미지 생성
+                    colorVariants.forEach((color, colorIndex) => {
+                        console.log(`🎨 색상 ${colorIndex + 1}/5 처리 중: ${color}`);
+
+                        try {
+                            const canvas = document.createElement('canvas');
+                            canvas.width = 1024;
+                            canvas.height = 1024;
+                            const ctx = canvas.getContext('2d');
+
+                            // 자료 이미지 그리기
+                            ctx.drawImage(baseImg, 0, 0, 1024, 1024);
+
+                            // 색상 그래디언트 오버레이
+                            const gradient = ctx.createLinearGradient(0, 0, 0, 1024);
+                            gradient.addColorStop(0, color + '40');
+                            gradient.addColorStop(1, color + '80');
+                            ctx.fillStyle = gradient;
+                            ctx.fillRect(0, 0, 1024, 1024);
+
+                            // 주제 텍스트
+                            ctx.fillStyle = 'white';
+                            ctx.font = 'bold 48px Arial';
+                            ctx.textAlign = 'center';
+                            ctx.shadowColor = color;
+                            ctx.shadowBlur = 15;
+                            ctx.shadowOffsetX = 2;
+                            ctx.shadowOffsetY = 2;
+                            const lines = subject.split('\n');
+                            let y = 400;
+                            lines.forEach(line => {
+                                ctx.fillText(line, 512, y);
+                                y += 60;
+                            });
+
+                            // 연락처 정보
+                            ctx.font = '20px Arial';
+                            ctx.shadowBlur = 8;
+                            ctx.fillText(contact, 512, 900);
+
+                            // 금기어 표시
+                            if (forbiddenWords && forbiddenWords.trim()) {
+                                ctx.font = 'bold 18px Arial';
+                                ctx.fillStyle = '#FF6B6B';
+                                ctx.shadowBlur = 12;
+                                ctx.shadowColor = '#000';
+                                ctx.textAlign = 'right';
+                                const forbiddenText = `⛔ 금기어: ${forbiddenWords}`;
+                                ctx.fillText(forbiddenText, 980, 970);
+                            }
+
+                            // 컬러 테마명 표시
+                            ctx.font = 'bold 16px Arial';
+                            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                            ctx.shadowBlur = 4;
+                            ctx.textAlign = 'left';
+                            ctx.fillText(`${colorNames[colorIndex]}`, 40, 160);
+
+                            // 로고 추가 (타임아웃 설정)
+                            const logoImg = new Image();
+                            let logoLoaded = false;
+
+                            // 타임아웃: 3초 내에 로드 안 되면 로고 없이 진행
+                            const logoTimeout = setTimeout(() => {
+                                if (!logoLoaded) {
+                                    console.warn('⚠️ 로고 로드 타임아웃 (색상 ' + (colorIndex + 1) + ')');
+                                    finishCanvas();
+                                }
+                            }, 3000);
+
+                            logoImg.onload = () => {
+                                logoLoaded = true;
+                                clearTimeout(logoTimeout);
+                                ctx.drawImage(logoImg, 20, 20, 120, 120);
+                                finishCanvas();
+                            };
+
+                            logoImg.onerror = () => {
+                                console.warn('⚠️ 로고 로드 실패 (색상 ' + (colorIndex + 1) + ')');
+                                clearTimeout(logoTimeout);
+                                finishCanvas();
+                            };
+
+                            logoImg.src = logoBase64;
+
+                            // Canvas를 DataURL로 변환 (file:// 프로토콜 호환)
+                            function finishCanvas() {
+                                try {
+                                    // toDataURL 사용 (file:// 프로토콜에서 안전)
+                                    const dataUrl = canvas.toDataURL('image/png');
+
+                                    generatedImages.push({
+                                        name: colorNames[colorIndex],
+                                        url: dataUrl,
+                                        blob: null
+                                    });
+
+                                    completedCount++;
+                                    const progressPercentage = 30 + (completedCount / 5) * 65;
+                                    updateProgress(Math.round(progressPercentage), `이미지 생성 중... (${completedCount}/5)`);
+                                    console.log(`✅ 색상 ${colorIndex + 1}/5 완료 (${(dataUrl.length / 1024).toFixed(1)} KB)`);
+
+                                    // 모든 이미지 생성 완료
+                                    if (completedCount === 5) {
+                                        console.log('✅ 모든 이미지 생성 완료!');
+                                        displayMultipleImages(generatedImages);
+                                        saveGenerationToSupabase(formData, generatedImages);
+                                        updateProgress(100, '✅ 5가지 컬러 이미지 생성 완료!');
+                                        setTimeout(() => {
+                                            progressBar.classList.remove('active');
+                                        }, 500);
+                                    }
+                                } catch (error) {
+                                    console.error(`❌ Canvas 변환 실패 (색상 ${colorIndex + 1}):`, error);
+                                    completedCount++;
+                                    if (completedCount === 5) {
+                                        if (generatedImages.length > 0) {
+                                            displayMultipleImages(generatedImages);
+                                        }
+                                        progressBar.classList.remove('active');
+                                    }
+                                }
+                            }
+                        } catch (error) {
+                            console.error('❌ 색상 ' + (colorIndex + 1) + ' 처리 중 오류:', error);
+                            completedCount++;
+                            if (completedCount === 5) {
+                                displayMultipleImages(generatedImages);
+                                progressBar.classList.remove('active');
+                            }
+                        }
+                    });
+                };
+
+                baseImg.onerror = (error) => {
+                    if (loadTimeout) clearTimeout(loadTimeout);
+                    console.error('[CANVAS-ERROR] 배경 이미지 로드 실패:', {
+                        error: error,
+                        src: baseImg.src.substring(0, 50) + '...',
+                        srcLength: baseImg.src.length,
+                        naturalWidth: baseImg.naturalWidth,
+                        naturalHeight: baseImg.naturalHeight
+                    });
+                    alert('❌ 배경 이미지를 로드할 수 없습니다.\n\n확인사항:\n1. 지원되는 형식(PNG, JPEG, WebP, GIF)인가요?\n2. 파일이 손상되지 않았나요?\n3. 다시 선택해주세요.');
+                    progressBar.classList.remove('active');
+                };
+
+                // 타임아웃 설정 (10초)
+                loadTimeout = setTimeout(() => {
+                    console.error('[CANVAS-ERROR] 배경 이미지 로드 타임아웃 (10초)');
+                    alert('❌ 배경 이미지 로드 시간 초과\n다시 시도해주세요.');
+                    progressBar.classList.remove('active');
+                }, 10000);
+
+                console.log('[CANVAS-DEBUG] baseImg.src 설정 중:', {
+                    dataLength: materialBase64.length,
+                    startsWith: materialBase64.substring(0, 30) + '...'
+                });
+
+                baseImg.src = materialBase64;
+            }, 1000);
+        }
+
+        // ============ 다운로드 & URL 복사 ============
+        // (5가지 이미지 각각에 대해 displayMultipleImages에서 처리)
+
+        // ============ 초기화 ============
+        document.getElementById('btn-reset').addEventListener('click', () => {
+            document.getElementById('subject').value = '';
+            document.getElementById('subject-count').textContent = '0';
+            document.getElementById('material-upload').value = '';
+            document.getElementById('material-preview').style.display = 'none';
+            document.getElementById('logo-upload').value = '';
+            document.getElementById('logo-preview').style.display = 'none';
+            document.getElementById('contact').value = '';
+            document.getElementById('forbidden-words').value = '';
+            document.getElementById('forbidden-count').textContent = '0';
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+            document.querySelectorAll('.template-item').forEach(t => t.classList.remove('selected'));
+            document.getElementById('result-container').classList.remove('active');
+            Object.assign(formData, {
+                subject: '', material: null, materialBase64: '', logo: null, logoBase64: '',
+                contact: '', industryTheme: null, imageTemplate: null, forbiddenWords: ''
+            });
+            console.log('✅ 폼 초기화 완료');
+        });
+
+        // Supabase 초기화
+        initSupabase();
+
+        console.log('✅ AI Visual Theme Studio 로드 완료 (Step 1-6 + Supabase 지원)');
+    </script>
+</body>
+</html>

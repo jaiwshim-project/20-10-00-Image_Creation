@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📸 갤러리 - AI Visual Theme Studio</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f9fafb; color: #111827; }
+        .navbar { background: #1f2937; color: white; padding: 1rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .navbar-content { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .nav-links { list-style: none; display: flex; gap: 2rem; }
+        .nav-links a { color: white; text-decoration: none; cursor: pointer; }
+        .nav-links a:hover { color: #2563eb; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
+        .header { text-align: center; margin-bottom: 3rem; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .card { background: white; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-left: 4px solid #2563eb; }
+        .images-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+        .image-item { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .image-color { width: 100%; height: 150px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 14px; }
+        .image-info { padding: 1rem; }
+        .color-name { font-weight: 600; color: #111827; margin-bottom: 0.5rem; }
+        .color-code { font-family: monospace; color: #6b7280; font-size: 0.9rem; }
+        .btn { padding: 0.75rem 1.5rem; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        .btn-primary { background: #2563eb; color: white; }
+        .btn-primary:hover { background: #1d4ed8; }
+        .btn-download { background: #10b981; color: white; padding: 0.5rem 1rem; font-size: 0.85rem; }
+        .btn-download:hover { background: #059669; }
+        .loading { text-align: center; padding: 3rem; color: #6b7280; }
+        .error { background: #fee2e2; color: #7f1d1d; padding: 1rem; border-radius: 6px; margin: 1rem 0; }
+        .footer { background: #1f2937; color: white; text-align: center; padding: 2rem; margin-top: 4rem; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-content">
+            <div style="font-size: 1.5rem; font-weight: 700;">🎨 AI Visual Theme Studio</div>
+            <ul class="nav-links">
+                <li><a href="index.html">🎯 이미지 생성</a></li>
+                <li><a href="themes.html">🎨 테마 관리</a></li>
+                <li><a href="guide.html">📖 사용 가이드</a></li>
+                <li><a href="gallery.html" style="color: #2563eb;">📸 갤러리</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>📸 갤러리</h1>
+            <p>생성된 모든 프로모션 이미지를 확인하고 다운로드할 수 있습니다</p>
+        </div>
+
+        <div id="loading" class="loading">
+            <p>📊 갤러리를 불러오는 중...</p>
+        </div>
+
+        <div id="error" style="display: none;"></div>
+        <div id="gallery"></div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2026 AI Visual Theme Studio. All rights reserved.</p>
+    </div>
+
+    <script>
+        // 전역 변수
+        let galleryClient = null;
+
+        // Supabase 초기화
+        async function initSupabase() {
+            try {
+                const response = await fetch('/api/config');
+                const config = await response.json();
+                const { createClient } = window.supabase;
+                galleryClient = createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY);
+                console.log('✅ Supabase 초기화 완료');
+                loadGallery();
+            } catch (error) {
+                showError('Supabase 초기화 실패: ' + error.message);
+            }
+        }
+
+        // 갤러리 로드
+        async function loadGallery() {
+            try {
+                console.log('🔄 갤러리 로드 중...');
+
+                // generations 조회
+                const { data: generations, error: genError } = await galleryClient
+                    .from('generations')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (genError) throw genError;
+
+                console.log('✅ 생성 기록:', generations.length + '개');
+
+                if (!generations || generations.length === 0) {
+                    showMessage('<div class="card"><p style="text-align:center; color:#6b7280;">생성된 이미지가 없습니다. <a href="index.html" style="color:#2563eb;">이미지를 생성</a>해보세요!</p></div>');
+                    return;
+                }
+
+                let html = '';
+
+                // 각 generation별로 렌더링
+                for (const gen of generations) {
+                    // images 조회
+                    const { data: images, error: imgError } = await galleryClient
+                        .from('images')
+                        .select('*')
+                        .eq('generation_id', gen.id);
+
+                    if (imgError) throw imgError;
+
+                    console.log(`✅ Generation ${gen.id}: ${images.length}개 이미지`);
+
+                    // 카드 시작
+                    html += `
+                        <div class="card">
+                            <h3>📝 ${gen.subject}</h3>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem; font-size: 0.9rem; color: #6b7280;">
+                                <div><strong>산업:</strong> ${gen.industry}</div>
+                                <div><strong>템플릿:</strong> ${gen.template}</div>
+                                <div><strong>연락처:</strong> ${gen.contact}</div>
+                            </div>
+                            ${gen.forbidden_words ? `<div style="margin-top: 1rem; font-size: 0.9rem; color: #6b7280;"><strong>금기어:</strong> ${gen.forbidden_words}</div>` : ''}
+
+                            <h4 style="margin-top: 2rem; margin-bottom: 1rem;">🎨 5가지 컬러</h4>
+                            <div class="images-grid">
+                    `;
+
+                    // 이미지 아이템
+                    if (images && images.length > 0) {
+                        images.forEach(img => {
+                            html += `
+                                <div class="image-item">
+                                    <div class="image-color" style="background-color: ${img.color_hex};">
+                                        ${img.color_hex}
+                                    </div>
+                                    <div class="image-info">
+                                        <div class="color-name">${img.color_name}</div>
+                                        <button class="btn btn-download" onclick="downloadImage('${img.color_name}', '${img.color_hex}')">⬇️ 다운로드</button>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    }
+
+                    html += `
+                            </div>
+                            <div style="margin-top: 1.5rem; text-align: right; font-size: 0.9rem; color: #6b7280;">
+                                생성일: ${new Date(gen.created_at).toLocaleString('ko-KR')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                document.getElementById('gallery').innerHTML = html;
+                document.getElementById('loading').style.display = 'none';
+                console.log('✅ 갤러리 렌더링 완료');
+
+            } catch (error) {
+                console.error('❌ 오류:', error);
+                showError('갤러리 로드 실패: ' + error.message);
+            }
+        }
+
+        function showError(message) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').innerHTML = `<div class="error">${message}</div>`;
+            document.getElementById('error').style.display = 'block';
+        }
+
+        function showMessage(message) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('gallery').innerHTML = message;
+        }
+
+        function downloadImage(colorName, colorHex) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 1024;
+            canvas.height = 1024;
+            const ctx = canvas.getContext('2d');
+
+            // 배경색
+            ctx.fillStyle = colorHex;
+            ctx.fillRect(0, 0, 1024, 1024);
+
+            // 텍스트
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 48px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(colorName, 512, 400);
+            ctx.font = '32px Arial';
+            ctx.fillText(colorHex, 512, 500);
+
+            // 다운로드
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${colorName}-${colorHex.replace('#', '')}.png`;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        }
+
+        // 페이지 로드 시 초기화
+        window.addEventListener('load', initSupabase);
+    </script>
+</body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배경 이미지 로드 진단</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 { color: #111827; }
+        .section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #2563eb;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .status { padding: 10px; margin: 10px 0; border-radius: 4px; font-weight: bold; }
+        .pass { background: #d1fae5; color: #065f46; }
+        .fail { background: #fee2e2; color: #991b1b; }
+        .info { background: #dbeafe; color: #0c4a6e; }
+        button { padding: 10px 15px; background: #2563eb; color: white; border: none; border-radius: 4px; cursor: pointer; margin-bottom: 10px; }
+        button:hover { background: #1d4ed8; }
+        input[type="file"] { padding: 10px; margin-bottom: 10px; }
+        .test-result { background: #f9fafb; padding: 15px; border-radius: 4px; margin: 10px 0; border-left: 3px solid #d1d5db; font-family: monospace; font-size: 0.9rem; overflow-x: auto; }
+        img { max-width: 300px; border-radius: 4px; margin: 10px 0; }
+        code { background: #f3f4f6; padding: 2px 4px; border-radius: 2px; }
+    </style>
+</head>
+<body>
+    <h1>🔍 배경 이미지 로드 진단</h1>
+
+    <div class="section">
+        <h2>📋 Step 1: 파일 시스템 확인</h2>
+        <button onclick="checkFileSystem()">📁 다운로드 폴더 이미지 확인</button>
+        <div id="file-system-result"></div>
+    </div>
+
+    <div class="section">
+        <h2>🖼️ Step 2: 이미지 업로드 & FileReader 테스트</h2>
+        <input type="file" id="test-file" accept="image/png,image/jpeg,image/jpg,image/webp,image/gif">
+        <button onclick="testFileUpload()">📤 파일 업로드 테스트</button>
+        <div id="upload-result"></div>
+        <img id="preview-img" style="display:none;">
+        <div id="base64-info"></div>
+    </div>
+
+    <div class="section">
+        <h2>🎨 Step 3: Image 객체 로드 테스트</h2>
+        <button onclick="testImageLoading()">🖼️ Image 객체 로드 테스트</button>
+        <div id="image-load-result"></div>
+    </div>
+
+    <div class="section">
+        <h2>🎼 Step 4: Canvas 렌더링 테스트</h2>
+        <button onclick="testCanvasRendering()">🎬 Canvas 렌더링 테스트</button>
+        <div id="canvas-result"></div>
+        <canvas id="test-canvas" style="border: 1px solid #ddd; margin-top: 10px; display: none;"></canvas>
+    </div>
+
+    <div class="section">
+        <h2>📊 상세 진단 결과</h2>
+        <div id="detailed-result"></div>
+    </div>
+
+    <script>
+        let uploadedBase64 = null;
+
+        function log(title, data) {
+            console.log(`[${title}]`, data);
+        }
+
+        function checkFileSystem() {
+            const result = document.getElementById('file-system-result');
+            const sampleImages = [
+                '에바셀2.png',
+                '선거5.png',
+                'GEO2.png',
+                'MedVo1.png'
+            ];
+
+            let html = '<p class="info">💡 샘플 이미지 위치:</p>';
+            html += '<p style="color: #333; font-size: 0.9rem; font-family: monospace;">C:\\Users\\USER\\Downloads\\</p>';
+            html += '<ul style="margin: 10px 0; margin-left: 20px;">';
+
+            sampleImages.forEach(img => {
+                html += `<li>${img}</li>`;
+            });
+
+            html += '</ul>';
+            html += '<p style="color: #666; font-size: 0.9rem;">위 이미지들을 사용해서 Step 2 파일 선택 테스트를 진행하세요.</p>';
+
+            result.innerHTML = html;
+        }
+
+        function testFileUpload() {
+            const fileInput = document.getElementById('test-file');
+            const file = fileInput.files[0];
+            const resultDiv = document.getElementById('upload-result');
+            const base64Info = document.getElementById('base64-info');
+
+            if (!file) {
+                resultDiv.innerHTML = '<p class="fail">❌ 파일을 선택하지 않았습니다.</p>';
+                return;
+            }
+
+            log('FILE_INFO', {
+                name: file.name,
+                type: file.type,
+                size: file.size,
+                lastModified: new Date(file.lastModified)
+            });
+
+            const reader = new FileReader();
+
+            reader.onprogress = (event) => {
+                if (event.lengthComputable) {
+                    const percent = (event.loaded / event.total * 100).toFixed(0);
+                    resultDiv.innerHTML = `<p class="info">📤 파일 로드 중... ${percent}%</p>`;
+                }
+            };
+
+            reader.onload = (event) => {
+                uploadedBase64 = event.target.result;
+
+                log('FILEREADER_ONLOAD', {
+                    resultLength: uploadedBase64.length,
+                    startsWith: uploadedBase64.substring(0, 50),
+                    isDataUrl: uploadedBase64.startsWith('data:')
+                });
+
+                resultDiv.innerHTML = `
+                    <p class="pass">✅ FileReader onload 성공</p>
+                    <div class="test-result">
+                        <strong>Base64 데이터</strong><br>
+                        길이: ${uploadedBase64.length} 바이트<br>
+                        시작: ${uploadedBase64.substring(0, 50)}...<br>
+                        형식: ${uploadedBase64.startsWith('data:') ? '✅ data URL' : '❌ data URL 아님'}
+                    </div>
+                `;
+
+                // 프리뷰 표시
+                const img = document.getElementById('preview-img');
+                img.src = uploadedBase64;
+                img.style.display = 'block';
+
+                img.onload = () => {
+                    log('PREVIEW_IMG_ONLOAD', {
+                        width: img.width,
+                        height: img.height
+                    });
+                    base64Info.innerHTML = `
+                        <p class="pass">✅ 프리뷰 이미지 로드 성공</p>
+                        <div class="test-result">
+                            이미지 해상도: ${img.width} x ${img.height}px
+                        </div>
+                    `;
+                };
+
+                img.onerror = () => {
+                    log('PREVIEW_IMG_ONERROR', 'Preview image load failed');
+                    base64Info.innerHTML = `
+                        <p class="fail">❌ 프리뷰 이미지 로드 실패</p>
+                        <div class="test-result">
+                            Base64 데이터는 유효하지만 이미지로 렌더링할 수 없습니다.
+                        </div>
+                    `;
+                };
+            };
+
+            reader.onerror = (error) => {
+                log('FILEREADER_ONERROR', error);
+                resultDiv.innerHTML = `<p class="fail">❌ FileReader 오류: ${error}</p>`;
+            };
+
+            try {
+                reader.readAsDataURL(file);
+                log('FILEREADER_READASDATAURL', 'Called');
+            } catch (error) {
+                log('FILEREADER_READASDATAURL_ERROR', error);
+                resultDiv.innerHTML = `<p class="fail">❌ readAsDataURL 호출 오류: ${error}</p>`;
+            }
+        }
+
+        function testImageLoading() {
+            const resultDiv = document.getElementById('image-load-result');
+
+            if (!uploadedBase64) {
+                resultDiv.innerHTML = '<p class="fail">❌ 먼저 Step 2에서 파일을 업로드하세요.</p>';
+                return;
+            }
+
+            const img = new Image();
+            let loaded = false;
+            let timeout = null;
+
+            img.onload = () => {
+                if (timeout) clearTimeout(timeout);
+                loaded = true;
+
+                log('IMAGE_ONLOAD', {
+                    width: img.width,
+                    height: img.height,
+                    complete: img.complete
+                });
+
+                resultDiv.innerHTML = `
+                    <p class="pass">✅ Image 객체 로드 성공</p>
+                    <div class="test-result">
+                        이미지 해상도: ${img.width} x ${img.height}px<br>
+                        complete: ${img.complete}<br>
+                        src 길이: ${img.src.length}
+                    </div>
+                `;
+            };
+
+            img.onerror = (error) => {
+                if (timeout) clearTimeout(timeout);
+
+                log('IMAGE_ONERROR', {
+                    error: error,
+                    complete: img.complete,
+                    naturalWidth: img.naturalWidth,
+                    naturalHeight: img.naturalHeight
+                });
+
+                resultDiv.innerHTML = `
+                    <p class="fail">❌ Image 객체 로드 실패</p>
+                    <div class="test-result">
+                        이 오류는 base64 데이터가 올바르지 않거나<br>
+                        브라우저에서 처리할 수 없는 형식입니다.
+                    </div>
+                `;
+            };
+
+            timeout = setTimeout(() => {
+                if (!loaded) {
+                    log('IMAGE_TIMEOUT', 'Image loading timeout (5s)');
+                    resultDiv.innerHTML = `
+                        <p class="fail">❌ Image 로드 타임아웃 (5초)</p>
+                        <div class="test-result">
+                            이미지가 너무 크거나 네트워크 문제가 있습니다.
+                        </div>
+                    `;
+                }
+            }, 5000);
+
+            log('IMAGE_SRC_SET', {
+                srcLength: uploadedBase64.length,
+                startsWith: uploadedBase64.substring(0, 50)
+            });
+
+            img.src = uploadedBase64;
+            resultDiv.innerHTML = '<p class="info">⏳ Image 객체 로드 중...</p>';
+        }
+
+        function testCanvasRendering() {
+            const resultDiv = document.getElementById('canvas-result');
+
+            if (!uploadedBase64) {
+                resultDiv.innerHTML = '<p class="fail">❌ 먼저 Step 2에서 파일을 업로드하세요.</p>';
+                return;
+            }
+
+            try {
+                const canvas = document.getElementById('test-canvas');
+                canvas.width = 1024;
+                canvas.height = 1024;
+                const ctx = canvas.getContext('2d');
+
+                if (!ctx) {
+                    throw new Error('Canvas 2D context를 얻을 수 없습니다');
+                }
+
+                log('CANVAS_CONTEXT', {
+                    width: canvas.width,
+                    height: canvas.height,
+                    contextType: ctx.constructor.name
+                });
+
+                // 배경 그리기
+                const img = new Image();
+                let loaded = false;
+                let timeout = null;
+
+                img.onload = () => {
+                    if (timeout) clearTimeout(timeout);
+                    loaded = true;
+
+                    try {
+                        // 이미지 그리기
+                        ctx.drawImage(img, 0, 0, 1024, 1024);
+                        log('CANVAS_DRAWIMAGE', {
+                            imgWidth: img.width,
+                            imgHeight: img.height
+                        });
+
+                        // 그라디언트 오버레이
+                        const gradient = ctx.createLinearGradient(0, 0, 0, 1024);
+                        gradient.addColorStop(0, '#2563eb40');
+                        gradient.addColorStop(1, '#2563eb80');
+                        ctx.fillStyle = gradient;
+                        ctx.fillRect(0, 0, 1024, 1024);
+
+                        // 텍스트 추가
+                        ctx.fillStyle = 'white';
+                        ctx.font = 'bold 48px Arial';
+                        ctx.textAlign = 'center';
+                        ctx.shadowColor = '#000';
+                        ctx.shadowBlur = 10;
+                        ctx.fillText('테스트 텍스트', 512, 300);
+
+                        // Canvas를 DataURL로 변환
+                        const dataUrl = canvas.toDataURL('image/png');
+
+                        log('CANVAS_TODATAURL', {
+                            length: dataUrl.length,
+                            startsWith: dataUrl.substring(0, 50)
+                        });
+
+                        canvas.style.display = 'block';
+
+                        resultDiv.innerHTML = `
+                            <p class="pass">✅ Canvas 렌더링 성공!</p>
+                            <div class="test-result">
+                                Canvas 크기: ${canvas.width} x ${canvas.height}px<br>
+                                DataURL 크기: ${(dataUrl.length / 1024).toFixed(1)} KB<br>
+                                렌더링 완료: 아래 이미지 참고
+                            </div>
+                        `;
+                    } catch (error) {
+                        log('CANVAS_RENDERING_ERROR', error);
+                        resultDiv.innerHTML = `
+                            <p class="fail">❌ Canvas 렌더링 실패</p>
+                            <div class="test-result">
+                                오류: ${error.message}
+                            </div>
+                        `;
+                    }
+                };
+
+                img.onerror = (error) => {
+                    if (timeout) clearTimeout(timeout);
+                    log('CANVAS_IMG_ONERROR', error);
+                    resultDiv.innerHTML = `
+                        <p class="fail">❌ Canvas 내부 이미지 로드 실패</p>
+                        <div class="test-result">
+                            Canvas에 그릴 이미지를 로드할 수 없습니다.
+                        </div>
+                    `;
+                };
+
+                timeout = setTimeout(() => {
+                    if (!loaded) {
+                        log('CANVAS_IMG_TIMEOUT', 'Image loading timeout (5s)');
+                        resultDiv.innerHTML = `
+                            <p class="fail">❌ Canvas 이미지 로드 타임아웃</p>
+                            <div class="test-result">
+                                이미지 로드 중 5초를 초과했습니다.
+                            </div>
+                        `;
+                    }
+                }, 5000);
+
+                resultDiv.innerHTML = '<p class="info">⏳ Canvas 렌더링 중...</p>';
+                img.src = uploadedBase64;
+
+            } catch (error) {
+                log('CANVAS_ERROR', error);
+                resultDiv.innerHTML = `
+                    <p class="fail">❌ Canvas 초기화 실패</p>
+                    <div class="test-result">
+                        오류: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // 페이지 로드 시 파일 시스템 확인
+        window.addEventListener('load', () => {
+            console.log('✅ 진단 페이지 로드됨');
+            checkFileSystem();
+        });
+    </script>
+</body>
+</html>

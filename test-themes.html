@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Theme Cards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f9fafb;
+            padding: 2rem;
+        }
+
+        .themes-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .theme-selection-card {
+            background: #ffffff;
+            border: 3px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-selection-card:hover {
+            transform: translateY(-8px);
+            border-color: #2563eb;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-selection-card .emoji {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .theme-selection-card .name {
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .theme-selection-card .description {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+
+        h1 {
+            margin-bottom: 2rem;
+            color: #111827;
+        }
+    </style>
+</head>
+<body>
+    <h1>테마 카드 렌더링 테스트</h1>
+
+    <div class="themes-card-grid" id="theme-selection">
+        <div class="theme-selection-card" data-theme-id="theme_tech_innovation" data-theme-name="기술/IT">
+            <div class="emoji">💻</div>
+            <div class="name">기술/IT</div>
+            <div class="description">디지털 혁신과 기술 솔루션</div>
+        </div>
+        <div class="theme-selection-card" data-theme-id="theme_finance_banking" data-theme-name="금융/뱅킹">
+            <div class="emoji">💰</div>
+            <div class="name">금융/뱅킹</div>
+            <div class="description">신뢰와 안정의 금융 서비스</div>
+        </div>
+        <div class="theme-selection-card" data-theme-id="theme_healthcare_medical" data-theme-name="의료/헬스">
+            <div class="emoji">🏥</div>
+            <div class="name">의료/헬스</div>
+            <div class="description">건강과 웰빙 솔루션</div>
+        </div>
+        <div class="theme-selection-card" data-theme-id="theme_education_learning" data-theme-name="교육/학습">
+            <div class="emoji">📚</div>
+            <div class="name">교육/학습</div>
+            <div class="description">혁신적인 교육 플랫폼</div>
+        </div>
+        <div class="theme-selection-card" data-theme-id="theme_realestate_property" data-theme-name="부동산">
+            <div class="emoji">🏠</div>
+            <div class="name">부동산</div>
+            <div class="description">프리미엄 부동산 솔루션</div>
+        </div>
+        <div class="theme-selection-card" data-theme-id="theme_food_beverage" data-theme-name="음식/음료">
+            <div class="emoji">🍽️</div>
+            <div class="name">음식/음료</div>
+            <div class="description">맛과 즐거움의 경험</div>
+        </div>
+    </div>
+
+    <script>
+        console.log('✅ 테스트 페이지 로드됨');
+        const container = document.getElementById('theme-selection');
+        console.log('✅ 컨테이너:', container);
+        console.log('✅ 카드 개수:', document.querySelectorAll('.theme-selection-card').length);
+    </script>
+</body>
+</html>

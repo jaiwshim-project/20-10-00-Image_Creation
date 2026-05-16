@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Diagnostic Page</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <h1>진단 페이지</h1>
+
+    <div id="diagnostic-output" style="white-space: pre-wrap; font-family: monospace; padding: 20px; background: #f0f0f0; margin: 20px; max-height: 800px; overflow-y: auto;"></div>
+
+    <script>
+        const output = document.getElementById('diagnostic-output');
+        const logs = [];
+
+        function log(msg) {
+            logs.push(msg);
+            output.textContent = logs.join('\n');
+            console.log(msg);
+        }
+
+        log('=== 진단 시작 ===\n');
+
+        // 1. 문서 확인
+        log('1. DOM 요소 확인:');
+        log(`   - document.ready: ${document.readyState}`);
+        log(`   - body exists: ${!!document.body}`);
+        log(`   - html exists: ${!!document.documentElement}`);
+
+        // 2. CSS 파일 확인
+        log('\n2. CSS 파일 로드 상태:');
+        const stylesheets = document.styleSheets;
+        log(`   - 로드된 스타일시트 개수: ${stylesheets.length}`);
+        for (let i = 0; i < stylesheets.length; i++) {
+            try {
+                log(`   - [${i}] ${stylesheets[i].href}`);
+            } catch (e) {
+                log(`   - [${i}] (보호된 스타일시트)`);
+            }
+        }
+
+        // 3. CSS 규칙 확인
+        log('\n3. 관련 CSS 규칙:');
+        try {
+            for (let i = 0; i < stylesheets.length; i++) {
+                const rules = stylesheets[i].cssRules;
+                if (rules) {
+                    for (let j = 0; j < rules.length; j++) {
+                        const rule = rules[j];
+                        if (rule.selectorText && rule.selectorText.includes('themes-card-grid')) {
+                            log(`   - 발견: ${rule.selectorText}`);
+                            if (rule.style.display) log(`     display: ${rule.style.display}`);
+                        }
+                    }
+                }
+            }
+        } catch (e) {
+            log(`   - CSS 규칙 확인 불가: ${e.message}`);
+        }
+
+        // 4. 계산된 스타일 확인
+        log('\n4. 특정 요소의 계산된 스타일:');
+
+        // .themes-card-grid 확인
+        const themeGrid = document.querySelector('.themes-card-grid');
+        if (themeGrid) {
+            const style = window.getComputedStyle(themeGrid);
+            log(`   - .themes-card-grid 발견!`);
+            log(`     display: ${style.display}`);
+            log(`     visibility: ${style.visibility}`);
+            log(`     opacity: ${style.opacity}`);
+            log(`     width: ${style.width}`);
+            log(`     height: ${style.height}`);
+        } else {
+            log(`   - .themes-card-grid 찾을 수 없음`);
+        }
+
+        // .theme-selection-card 확인
+        const themeCards = document.querySelectorAll('.theme-selection-card');
+        log(`\n   - .theme-selection-card 개수: ${themeCards.length}`);
+        if (themeCards.length > 0) {
+            const style = window.getComputedStyle(themeCards[0]);
+            log(`     첫 번째 카드:`);
+            log(`       display: ${style.display}`);
+            log(`       visibility: ${style.visibility}`);
+            log(`       opacity: ${style.opacity}`);
+        }
+
+        // 5. 섹션 확인
+        log('\n5. 섹션 상태:');
+        const section = document.getElementById('create');
+        if (section) {
+            const style = window.getComputedStyle(section);
+            log(`   - #create 섹션 발견!`);
+            log(`     classList: ${section.className}`);
+            log(`     display: ${style.display}`);
+            log(`     visibility: ${style.visibility}`);
+        } else {
+            log(`   - #create 섹션 찾을 수 없음`);
+        }
+
+        log('\n=== 진단 완료 ===');
+    </script>
+</body>
+</html>

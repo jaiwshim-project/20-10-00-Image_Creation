@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Visual Theme Studio - 초기 설정</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(to bottom, #f9fafb, #ffffff, #f3f4f6);
+            color: #111827;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            background: #1f2937;
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            color: #6b7280;
+        }
+
+        .setup-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 4px solid #2563eb;
+        }
+
+        .setup-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: #111827;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .status-ok { background-color: #10b981; }
+        .status-error { background-color: #ef4444; }
+        .status-warning { background-color: #f59e0b; }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .status-row:last-child {
+            border-bottom: none;
+        }
+
+        .status-text {
+            color: #6b7280;
+        }
+
+        .btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .code-block {
+            background: #1f2937;
+            color: #10b981;
+            padding: 1.5rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+            line-height: 1.5;
+        }
+
+        .sql-button {
+            background: #8b5cf6;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .sql-button:hover {
+            background: #7c3aed;
+        }
+
+        .log-section {
+            background: #1f2937;
+            color: #10b981;
+            padding: 1.5rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 1rem;
+        }
+
+        .log-line {
+            line-height: 1.5;
+        }
+
+        .success { color: #10b981; }
+        .error { color: #ef4444; }
+        .warning { color: #f59e0b; }
+        .info { color: #60a5fa; }
+
+        .note {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-content">
+            <div class="logo">🎨 AI Visual Theme Studio</div>
+            <ul class="nav-links">
+                <li><a href="setup.html" style="color: #2563eb;">⚙️ 초기 설정</a></li>
+                <li><a href="index.html">🎯 이미지 생성</a></li>
+                <li><a href="themes.html">🎨 테마 관리</a></li>
+                <li><a href="guide.html">📖 사용 가이드</a></li>
+                <li><a href="gallery.html">📸 갤러리</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🚀 초기 설정 (Setup)</h1>
+            <p>AI Visual Theme Studio를 사용하기 위한 필수 설정을 확인하세요</p>
+        </div>
+
+        <!-- 시스템 상태 -->
+        <div class="setup-card">
+            <h3>📊 시스템 상태</h3>
+            <div id="system-status">
+                <div class="status-row">
+                    <span>로컬 서버 연결</span>
+                    <span>
+                        <span class="status-indicator" id="server-status"></span>
+                        <span id="server-text">확인 중...</span>
+                    </span>
+                </div>
+                <div class="status-row">
+                    <span>Supabase 연결</span>
+                    <span>
+                        <span class="status-indicator" id="supabase-status"></span>
+                        <span id="supabase-text">확인 중...</span>
+                    </span>
+                </div>
+                <div class="status-row">
+                    <span>Supabase 테이블 (generations)</span>
+                    <span>
+                        <span class="status-indicator" id="table-gen-status"></span>
+                        <span id="table-gen-text">확인 중...</span>
+                    </span>
+                </div>
+                <div class="status-row">
+                    <span>Supabase 테이블 (images)</span>
+                    <span>
+                        <span class="status-indicator" id="table-img-status"></span>
+                        <span id="table-img-text">확인 중...</span>
+                    </span>
+                </div>
+                <div class="status-row">
+                    <span>Supabase 테이블 (custom_themes)</span>
+                    <span>
+                        <span class="status-indicator" id="table-theme-status"></span>
+                        <span id="table-theme-text">확인 중...</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 테이블 생성 가이드 -->
+        <div class="setup-card" id="setup-guide">
+            <h3>📋 테이블 생성 (Step 1)</h3>
+            <p>Supabase 데이터베이스에 다음 SQL을 실행해야 합니다:</p>
+
+            <div class="code-block" id="sql-code">생성 중...</div>
+
+            <div class="note">
+                <strong>📍 실행 방법:</strong><br>
+                1️⃣ 아래 버튼을 클릭하여 Supabase SQL Editor 열기<br>
+                2️⃣ 위의 SQL 코드 복사<br>
+                3️⃣ SQL Editor에 붙여넣기<br>
+                4️⃣ "RUN" 버튼 클릭<br>
+                5️⃣ 이 페이지 새로고침 (Ctrl+F5)
+            </div>
+
+            <button class="btn sql-button" onclick="openSupabaseSQLEditor()">
+                🌐 Supabase SQL Editor 열기
+            </button>
+        </div>
+
+        <!-- 설정 검증 -->
+        <div class="setup-card">
+            <h3>✅ 설정 완료 확인</h3>
+            <p>모든 시스템이 정상 상태인지 확인하세요:</p>
+            <button class="btn" onclick="checkAllStatus()">
+                🔍 상태 다시 확인
+            </button>
+            <button class="btn btn-secondary" onclick="goToMainApp()">
+                🎯 메인 앱으로 이동
+            </button>
+        </div>
+
+        <!-- 진단 로그 -->
+        <div class="setup-card">
+            <h3>📝 진단 로그</h3>
+            <div class="log-section" id="log-output"></div>
+        </div>
+    </div>
+
+    <script>
+        let config = null;
+        let setupClient = null;
+
+        function log(message, type = 'info') {
+            const logOutput = document.getElementById('log-output');
+            const timestamp = new Date().toLocaleTimeString('ko-KR');
+            const line = document.createElement('div');
+            line.className = `log-line ${type}`;
+            line.textContent = `[${timestamp}] ${message}`;
+            logOutput.appendChild(line);
+            logOutput.scrollTop = logOutput.scrollHeight;
+        }
+
+        async function checkServerStatus() {
+            try {
+                log('로컬 서버 상태 확인 중...', 'info');
+                const response = await fetch('/api/config', { method: 'GET' });
+                if (response.ok) {
+                    config = await response.json();
+                    setStatus('server-status', 'ok');
+                    document.getElementById('server-text').textContent = '정상 (http://localhost:3000)';
+                    log('✅ 로컬 서버 정상 연결됨', 'success');
+                    return true;
+                } else {
+                    setStatus('server-status', 'error');
+                    document.getElementById('server-text').textContent = '연결 실패';
+                    log('❌ 로컬 서버 연결 실패 (응답: ' + response.status + ')', 'error');
+                    return false;
+                }
+            } catch (error) {
+                setStatus('server-status', 'error');
+                document.getElementById('server-text').textContent = '오류 발생';
+                log('❌ 로컬 서버 오류: ' + error.message, 'error');
+                return false;
+            }
+        }
+
+        async function checkSupabaseConnection() {
+            try {
+                log('Supabase 연결 확인 중...', 'info');
+
+                if (!config || !config.SUPABASE_URL || !config.SUPABASE_ANON_KEY) {
+                    setStatus('supabase-status', 'error');
+                    document.getElementById('supabase-text').textContent = '설정 없음';
+                    log('❌ Supabase 설정 정보 없음', 'error');
+                    return false;
+                }
+
+                const { createClient } = window.supabase;
+                if (!createClient) {
+                    setStatus('supabase-status', 'error');
+                    document.getElementById('supabase-text').textContent = 'SDK 로드 실패';
+                    log('❌ Supabase SDK 로드 실패', 'error');
+                    return false;
+                }
+
+                setupClient = createClient(config.SUPABASE_URL, config.SUPABASE_ANON_KEY);
+
+                // 간단한 연결 테스트
+                const { data, error } = await setupClient.from('generations').select('count', { count: 'exact' }).limit(1);
+
+                if (error && error.message.includes('does not exist')) {
+                    // 테이블이 없음 - 일부 정상 (연결은 되었으나 테이블 필요)
+                    setStatus('supabase-status', 'ok');
+                    document.getElementById('supabase-text').textContent = '정상 (테이블 대기)';
+                    log('✅ Supabase 연결 정상 (테이블 생성 필요)', 'success');
+                    return true;
+                } else if (error) {
+                    setStatus('supabase-status', 'error');
+                    document.getElementById('supabase-text').textContent = '오류: ' + error.message;
+                    log('❌ Supabase 오류: ' + error.message, 'error');
+                    return false;
+                } else {
+                    setStatus('supabase-status', 'ok');
+                    document.getElementById('supabase-text').textContent = '정상';
+                    log('✅ Supabase 완전히 정상', 'success');
+                    return true;
+                }
+            } catch (error) {
+                setStatus('supabase-status', 'error');
+                document.getElementById('supabase-text').textContent = '오류 발생';
+                log('❌ Supabase 연결 오류: ' + error.message, 'error');
+                return false;
+            }
+        }
+
+        async function checkTableStatus(tableName, statusId, textId) {
+            try {
+                const { data, error } = await setupClient
+                    .from(tableName)
+                    .select('count', { count: 'exact', head: true })
+                    .limit(0);
+
+                if (error) {
+                    if (error.message.includes('does not exist')) {
+                        setStatus(statusId, 'error');
+                        document.getElementById(textId).textContent = '테이블 없음';
+                        log(`❌ ${tableName} 테이블이 존재하지 않습니다`, 'error');
+                        return false;
+                    } else {
+                        setStatus(statusId, 'error');
+                        document.getElementById(textId).textContent = '오류: ' + error.message;
+                        log(`❌ ${tableName} 확인 오류: ${error.message}`, 'error');
+                        return false;
+                    }
+                } else {
+                    setStatus(statusId, 'ok');
+                    document.getElementById(textId).textContent = '✅ 존재함';
+                    log(`✅ ${tableName} 테이블이 존재합니다`, 'success');
+                    return true;
+                }
+            } catch (error) {
+                setStatus(statusId, 'error');
+                document.getElementById(textId).textContent = '확인 실패';
+                log(`❌ ${tableName} 확인 실패: ${error.message}`, 'error');
+                return false;
+            }
+        }
+
+        function setStatus(id, status) {
+            const indicator = document.getElementById(id);
+            if (indicator) {
+                indicator.className = `status-indicator status-${status}`;
+            }
+        }
+
+        async function checkAllStatus() {
+            log('=' .repeat(50), 'info');
+            log('🔄 전체 상태 확인 시작', 'info');
+
+            document.getElementById('log-output').innerHTML = '';
+
+            const serverOk = await checkServerStatus();
+            if (!serverOk) {
+                log('❌ 로컬 서버가 실행되지 않았습니다', 'error');
+                log('💡 server.js를 실행해주세요: node server.js', 'warning');
+                return;
+            }
+
+            const supabaseOk = await checkSupabaseConnection();
+            if (!supabaseOk) {
+                log('❌ Supabase 연결 실패', 'error');
+                return;
+            }
+
+            await checkTableStatus('generations', 'table-gen-status', 'table-gen-text');
+            await checkTableStatus('images', 'table-img-status', 'table-img-text');
+            await checkTableStatus('custom_themes', 'table-theme-status', 'table-theme-text');
+
+            log('=' .repeat(50), 'info');
+            log('✅ 상태 확인 완료', 'success');
+        }
+
+        function loadSQLCode() {
+            const sqlCode = `CREATE TABLE IF NOT EXISTS generations (
+  id BIGSERIAL PRIMARY KEY,
+  subject TEXT NOT NULL,
+  industry TEXT NOT NULL,
+  template TEXT NOT NULL,
+  contact TEXT NOT NULL,
+  forbidden_words TEXT,
+  material_preview TEXT,
+  logo_preview TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS images (
+  id BIGSERIAL PRIMARY KEY,
+  generation_id BIGINT REFERENCES generations(id) ON DELETE CASCADE,
+  color_name TEXT NOT NULL,
+  color_hex TEXT NOT NULL,
+  image_url TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS custom_themes (
+  id BIGSERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  description TEXT,
+  color TEXT NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_generations_created_at ON generations(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_images_generation_id ON images(generation_id);
+CREATE INDEX IF NOT EXISTS idx_custom_themes_created_at ON custom_themes(created_at DESC);`;
+
+            document.getElementById('sql-code').textContent = sqlCode;
+        }
+
+        function openSupabaseSQLEditor() {
+            const sqlEditorUrl = 'https://supabase.com/dashboard/project/ekvnwbumkkolthhvjfmk/sql/new';
+            window.open(sqlEditorUrl, '_blank');
+            log('💡 Supabase SQL Editor를 새 창에서 열었습니다', 'info');
+            log('위의 SQL 코드를 복사해서 붙여넣으세요', 'info');
+        }
+
+        function goToMainApp() {
+            window.location.href = 'index.html';
+        }
+
+        // 초기화
+        document.addEventListener('DOMContentLoaded', () => {
+            log('🚀 AI Visual Theme Studio 초기 설정 페이지 로드됨', 'info');
+            loadSQLCode();
+            checkAllStatus();
+        });
+
+        // Supabase SDK 로드
+        document.addEventListener('DOMContentLoaded', () => {
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+            script.onload = () => {
+                console.log('✅ Supabase SDK 로드됨');
+            };
+            document.head.appendChild(script);
+        });
+    </script>
+</body>
+</html>
