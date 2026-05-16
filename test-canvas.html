@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/20-10-00-Image_Creation/">
+    <title>Canvas 렌더링 테스트</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .test-section { border: 1px solid #ddd; padding: 20px; margin: 20px 0; border-radius: 8px; }
+        .success { color: green; font-weight: bold; }
+        .error { color: red; font-weight: bold; }
+        .log { background: #f0f0f0; padding: 15px; border-radius: 4px; margin: 10px 0; max-height: 300px; overflow-y: auto; font-family: monospace; font-size: 12px; }
+        canvas { border: 1px solid #999; margin: 10px 0; display: block; }
+        img { border: 1px solid #999; margin: 10px 0; max-width: 100%; }
+    </style>
+</head>
+<body>
+    <h1>🎨 Canvas 렌더링 테스트</h1>
+    <p>이미지 로드 및 Canvas 그리기 진단</p>
+
+    <!-- 1. 이미지 로드 테스트 -->
+    <div class="test-section">
+        <h2>1️⃣ 이미지 로드 테스트</h2>
+        <div id="log1" class="log"></div>
+        <img id="testImg" alt="로드 테스트" style="max-width: 300px;">
+    </div>
+
+    <!-- 2. Canvas 렌더링 테스트 (이미지 없음) -->
+    <div class="test-section">
+        <h2>2️⃣ Canvas 기본 렌더링 (텍스트만)</h2>
+        <div id="log2" class="log"></div>
+        <canvas id="canvas2" width="400" height="300" style="border: 1px solid #999;"></canvas>
+    </div>
+
+    <!-- 3. Canvas 렌더링 테스트 (이미지 포함) -->
+    <div class="test-section">
+        <h2>3️⃣ Canvas 이미지 그리기</h2>
+        <div id="log3" class="log"></div>
+        <canvas id="canvas3" width="400" height="300" style="border: 1px solid #999;"></canvas>
+    </div>
+
+    <!-- 4. 최종 결과 -->
+    <div class="test-section">
+        <h2>4️⃣ 최종 결과</h2>
+        <div id="summary" class="log"></div>
+    </div>
+
+    <script>
+        function log(elementId, message) {
+            const el = document.getElementById(elementId);
+            const line = document.createElement('div');
+            const timestamp = new Date().toLocaleTimeString();
+            line.textContent = `[${timestamp}] ${message}`;
+            el.appendChild(line);
+            el.scrollTop = el.scrollHeight;
+            console.log(message);
+        }
+
+        async function runTests() {
+            log('summary', '🚀 테스트 시작...');
+
+            // 1️⃣ 이미지 로드 테스트
+            log('log1', '이미지 로드 시작...');
+            log('log1', `현재 환경: ${window.location.hostname}`);
+            log('log1', `Base href: ${document.baseURI}`);
+
+            const testImg = document.getElementById('testImg');
+            let imageLoaded = false;
+
+            testImg.onload = function() {
+                imageLoaded = true;
+                log('log1', `✅ 이미지 로드 성공 (${this.naturalWidth}x${this.naturalHeight}px)`);
+            };
+
+            testImg.onerror = function() {
+                log('log1', `❌ 이미지 로드 실패: ${testImg.src}`);
+            };
+
+            testImg.src = '/20-10-00-Image_Creation/images/ebasel.png';
+            log('log1', `이미지 URL: ${testImg.src}`);
+
+            // 2️⃣ Canvas 기본 렌더링 (텍스트만)
+            await new Promise(r => setTimeout(r, 500));
+            log('log2', 'Canvas 2D 컨텍스트 획득...');
+
+            const canvas2 = document.getElementById('canvas2');
+            const ctx2 = canvas2.getContext('2d');
+
+            try {
+                // 배경
+                ctx2.fillStyle = '#2563eb';
+                ctx2.fillRect(0, 0, 400, 300);
+
+                // 텍스트
+                ctx2.fillStyle = 'white';
+                ctx2.font = 'bold 24px Arial';
+                ctx2.textAlign = 'center';
+                ctx2.fillText('텍스트 렌더링 성공', 200, 150);
+
+                log('log2', '✅ Canvas 2D 기본 렌더링 성공');
+            } catch (error) {
+                log('log2', `❌ Canvas 오류: ${error.message}`);
+            }
+
+            // 3️⃣ Canvas 이미지 그리기
+            log('log3', '이미지 로드 대기 중...');
+
+            // 이미지가 로드될 때까지 대기 (최대 5초)
+            let waitCount = 0;
+            while (!imageLoaded && waitCount < 50) {
+                await new Promise(r => setTimeout(r, 100));
+                waitCount++;
+            }
+
+            if (!imageLoaded) {
+                log('log3', '⏱️ 이미지 로드 타임아웃 (5초)');
+            } else {
+                log('log3', '이미지 로드 완료, Canvas에 그리기 중...');
+
+                const canvas3 = document.getElementById('canvas3');
+                const ctx3 = canvas3.getContext('2d');
+
+                try {
+                    // 이미지 그리기
+                    ctx3.drawImage(testImg, 0, 0, 400, 300);
+                    log('log3', '✅ 이미지 drawImage 성공');
+
+                    // 그래디언트 오버레이
+                    const gradient = ctx3.createLinearGradient(0, 0, 0, 300);
+                    gradient.addColorStop(0, '#2563eb40');
+                    gradient.addColorStop(1, '#2563eb80');
+                    ctx3.fillStyle = gradient;
+                    ctx3.fillRect(0, 0, 400, 300);
+                    log('log3', '✅ 그래디언트 오버레이 완료');
+
+                    // 텍스트
+                    ctx3.fillStyle = 'white';
+                    ctx3.font = 'bold 16px Arial';
+                    ctx3.textAlign = 'center';
+                    ctx3.fillText('템플릿 + 그래디언트 + 텍스트', 200, 150);
+                    log('log3', '✅ 텍스트 추가 완료');
+
+                } catch (error) {
+                    log('log3', `❌ Canvas 오류: ${error.message}`);
+                }
+            }
+
+            // 최종 결과
+            await new Promise(r => setTimeout(r, 500));
+            log('summary', '✅ 모든 테스트 완료!');
+            log('summary', '');
+            log('summary', '📊 결과:');
+            log('summary', `  • 이미지 로드: ${imageLoaded ? '✅ 성공' : '❌ 실패'}`);
+            log('summary', `  • Canvas 기본 렌더링: ✅ 성공 (canvas2)`);
+            log('summary', `  • Canvas 이미지 그리기: ${imageLoaded ? '✅ 성공 (canvas3)' : '⚠️ 이미지 로드 실패로 인해 건너뜀'}`);
+            log('summary', '');
+            log('summary', '💡 해석:');
+            if (imageLoaded) {
+                log('summary', '  이미지가 정상 로드되고 Canvas에도 그려집니다.');
+                log('summary', '  color box 문제는 다른 원인일 수 있습니다.');
+            } else {
+                log('summary', '  ⚠️ 이미지 로드 실패! 경로 문제일 가능성 높음.');
+                log('summary', '  • GitHub Pages에서 정확한 경로 확인 필요');
+                log('summary', '  • CORS 이슈 확인');
+            }
+        }
+
+        // 페이지 로드 시 테스트 실행
+        window.addEventListener('load', () => {
+            setTimeout(runTests, 500);
+        });
+    </script>
+</body>
+</html>
