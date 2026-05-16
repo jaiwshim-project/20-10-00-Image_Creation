@@ -959,9 +959,12 @@
                             const ctx = canvas.getContext('2d');
 
                             // 1️⃣ 템플릿 이미지 (Step 5에서 선택한 템플릿)를 배경으로 그리기
-                            // baseImg가 이미 로드되었음이 확인됨
-                            ctx.drawImage(baseImg, 0, 0, 1024, 1024);
-                            console.log(`  → 템플릿 이미지 드로우 완료 (${baseImg.naturalWidth}x${baseImg.naturalHeight})`);
+                            if (baseImg.naturalWidth > 0 && baseImg.naturalHeight > 0) {
+                                ctx.drawImage(baseImg, 0, 0, 1024, 1024);
+                                console.log(`%c  ✅ 템플릿 이미지 드로우 성공 (${baseImg.naturalWidth}x${baseImg.naturalHeight})`, 'color: green; font-weight: bold;');
+                            } else {
+                                console.warn(`%c  ⚠️ 템플릿 이미지 비어있음 - 그래디언트만 적용됨`, 'color: orange; font-weight: bold;');
+                            }
 
                             // 2️⃣ Step 2 자료 이미지가 있으면 위에 overlay (투명도 35%)
                             if (materialLoaded && materialImg.complete) {
@@ -1097,13 +1100,38 @@
 
                 baseImg.onerror = (error) => {
                     if (loadTimeout) clearTimeout(loadTimeout);
-                    console.error('%c❌ 템플릿 이미지 로드 실패!', 'color: red; font-size: 14px; font-weight: bold;', {
+                    console.error('%c❌ 템플릿 이미지 로드 실패! (재시도 중...)', 'color: red; font-size: 14px; font-weight: bold;', {
                         error: error,
                         src: baseImg.src,
-                        statusCode: baseImg.status
+                        retryCount: baseImg.retryCount || 0
                     });
-                    alert('❌ 템플릿 이미지를 로드할 수 없습니다.\n\n확인사항:\n1. 이미지 파일이 존재하나요?\n2. 경로가 올바른가요?\n3. 다시 시도해주세요.');
-                    progressBar.classList.remove('active');
+
+                    // 재시도: 다른 경로 시도 (절대 경로)
+                    if ((baseImg.retryCount || 0) === 0) {
+                        baseImg.retryCount = 1;
+                        console.log('🔄 절대 경로로 재시도...');
+                        baseImg.src = '/20-10-00-Image_Creation/' + selectedTemplate.image;
+                        return;
+                    }
+
+                    // 재시도 2: root 경로 시도
+                    if ((baseImg.retryCount || 0) === 1) {
+                        baseImg.retryCount = 2;
+                        console.log('🔄 root 경로로 재시도...');
+                        baseImg.src = '/images/' + selectedTemplate.image.split('/').pop();
+                        return;
+                    }
+
+                    // 모든 재시도 실패: 그래디언트만으로 진행
+                    console.warn('%c⚠️ 템플릿 이미지 로드 실패 - 그래디언트로 진행', 'color: orange; font-weight: bold;');
+                    updateProgress(25, '템플릿 로드 실패 - 색상 그래디언트로 진행 중...');
+
+                    // 빈 이미지 객체 생성 (drawImage를 호출해도 오류 안 남)
+                    baseImg.naturalWidth = 0;
+                    baseImg.naturalHeight = 0;
+
+                    // onload 콜백 수동 실행 (그래디언트만 생성)
+                    baseImg.onload();
                 };
 
                 // Step 5 템플릿 이미지 로드
@@ -1121,31 +1149,40 @@
 
                 // 템플릿 이미지 경로 - 환경별 자동 처리
                 let templatePath = selectedTemplate.image;
+                let detectedEnv = '기타';
 
                 // 로컬 서버 vs GitHub Pages 자동 감지
                 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
                     // 로컬 서버: /images/ebasel.png
                     templatePath = '/' + selectedTemplate.image;
-                    console.log('🖥️ 로컬 서버 감지');
+                    detectedEnv = '로컬 서버 (localhost)';
                 } else if (window.location.hostname.includes('github.io')) {
                     // GitHub Pages: /20-10-00-Image_Creation/images/ebasel.png
                     templatePath = '/20-10-00-Image_Creation/' + selectedTemplate.image;
-                    console.log('🌐 GitHub Pages 감지');
+                    detectedEnv = 'GitHub Pages';
+                } else {
+                    // 기타 환경 (Vercel, 커스텀 도메인 등): GitHub Pages 경로로 기본 설정
+                    templatePath = '/20-10-00-Image_Creation/' + selectedTemplate.image;
+                    detectedEnv = `기타 (${window.location.hostname}) → GitHub 경로로 설정`;
                 }
 
                 console.log('%c[PATH] 최종 템플릿 경로', 'color: orange; font-weight: bold;', {
                     hostname: window.location.hostname,
+                    detectedEnv: detectedEnv,
                     resolvedPath: templatePath
                 });
 
-                // 타임아웃 설정 (10초)
+                // 타임아웃 설정 (15초로 연장)
                 loadTimeout = setTimeout(() => {
                     if (!onloadTriggered) {
-                        console.error('%c⏱️ 템플릿 이미지 로드 타임아웃 (10초)', 'color: red; font-size: 14px;');
-                        alert('❌ 템플릿 이미지 로드 시간 초과\n다시 시도해주세요.');
+                        console.error('%c⏱️ 템플릿 이미지 로드 타임아웃 (15초)', 'color: red; font-size: 14px;', {
+                            attemptedPath: templatePath,
+                            expectedUrl: window.location.origin + templatePath
+                        });
+                        alert(`❌ 템플릿 이미지 로드 실패\n\n경로: ${templatePath}\n\n다시 시도해주세요.`);
                         progressBar.classList.remove('active');
                     }
-                }, 10000);
+                }, 15000);
 
                 console.log('%c[SRC] 이미지 src 할당 중...', 'color: purple; font-weight: bold;');
                 baseImg.src = templatePath;

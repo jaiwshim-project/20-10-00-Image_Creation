@@ -69,7 +69,10 @@
       "Bash(git commit -m 'feat: 템플릿 기반 이미지 생성 - Step 5 템플릿 디자인 적용 *)",
       "Bash(git commit -m 'fix: 템플릿 이미지 경로 처리 개선 *)",
       "Bash(git commit -m 'fix: 환경별 템플릿 이미지 경로 자동 감지 *)",
-      "Bash(node test-image-generation.js)"
+      "Bash(node test-image-generation.js)",
+      "Bash(git reset *)",
+      "Bash(git commit *)",
+      "Bash(node test-full-flow.js)"
     ]
   }
 }
